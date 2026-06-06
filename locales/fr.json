@@ -27,47 +27,62 @@
     "title": "Règles du jeu",
     "subtitle": "Whist — jeu de plis",
     "sections": {
-      "theGame": {
-        "title": "Le Jeu",
-        "body": "Le Whist est un jeu de plis pour 3 à 8 joueurs. Cette application suit vos scores pour que vous puissiez vous concentrer sur le jeu."
+      "whatIsATrick": {
+        "title": "Qu'est-ce qu'un pli ?",
+        "body": "Un pli est un tour de jeu de cartes. Chaque joueur joue une carte à son tour. Le joueur qui a joué la carte la plus forte remporte le pli — il récupère toutes les cartes jouées et commence le pli suivant.",
+        "goal": "L'objectif : prédire combien de plis vous allez remporter avant que la manche ne commence."
       },
-      "playersSeats": {
-        "title": "Joueurs & Places",
-        "body": "Chaque joueur occupe une place. L'ordre des places est défini au début et reste fixe pour toute la partie. Vous pouvez jouer de 3 à 8 joueurs."
+      "cardValues": {
+        "title": "Valeur des cartes",
+        "body": "Les cartes sont classées selon leur valeur faciale. L'As est la carte la plus faible (valeur 1) et le Roi est la plus forte.",
+        "trump": "Si un atout est en jeu, n'importe quelle carte d'atout bat toute carte non-atout, quelle que soit sa valeur."
       },
-      "rounds": {
-        "title": "Manches",
-        "body": "Une partie se joue en autant de manches que vous le souhaitez. À chaque manche, un joueur est le Premier Joueur (marqué ★). Le rôle de Premier Joueur tourne entre toutes les places après chaque manche."
+      "theDeal": {
+        "title": "Manches & Distribution",
+        "body": "La partie se joue en plusieurs manches. À chaque manche, un joueur est le Donneur — ce rôle passe au joueur suivant après chaque manche.",
+        "dealIntro": "Le donneur distribue les cartes une par une à chaque joueur, en mélangeant cartes face visible et face cachée :",
+        "bullet1": "Les cartes face cachée vont dans la main du joueur — lui seul peut les voir.",
+        "bullet2": "Les cartes face visible restent sur la table devant le joueur — tout le monde peut les voir.",
+        "bullet3": "Chaque joueur reçoit le même nombre total de cartes.",
+        "bullet4": "Nous recommandons au moins 5 cartes par joueur au total.",
+        "trumpTitle": "Atout (optionnel, mais recommandé)",
+        "trumpBody": "Après la distribution, le donneur peut retourner la première carte du talon — sa couleur devient l'atout de la manche. Les cartes d'atout battent toutes les autres.",
+        "tip": "Bon point de départ : 4 cartes face visible + 5 cartes face cachée par joueur."
       },
       "contracts": {
         "title": "Contrats",
-        "body": "Au début de chaque manche, chaque joueur annonce son contrat — le nombre de plis qu'il pense remporter. Les contrats sont saisis un joueur à la fois, en commençant par le Premier Joueur."
+        "body": "Avant de jouer les cartes, chaque joueur annonce son contrat — le nombre de plis qu'il pense remporter. Les annonces commencent avec le joueur à gauche du donneur, dans le sens du jeu.",
+        "constraintLabel": "Contrainte du donneur",
+        "constraintBody": "Le donneur annonce en dernier et doit choisir un nombre tel que le total des contrats soit différent du nombre de plis de la manche. Cela garantit qu'au moins un joueur perdra des points.",
+        "example": "Exemple : 4 joueurs, 9 plis. Si les 3 premiers annoncent 2 + 3 + 2 = 7, le donneur ne peut pas annoncer 2 (le total serait 9). Il doit annoncer autre chose."
       },
-      "results": {
-        "title": "Résultats",
-        "body": "Après avoir joué la manche à la table, chaque joueur saisit le nombre de plis réellement remportés. Les scores sont calculés automatiquement."
+      "playingARound": {
+        "title": "Déroulement d'un pli",
+        "body": "Le joueur à gauche du donneur commence le premier pli en jouant n'importe quelle carte. Chaque joueur doit jouer une carte de la même couleur que la première carte jouée — c'est la règle la plus importante.",
+        "noSuitIntro": "Si vous n'avez pas de carte de cette couleur, vous pouvez :",
+        "option1": "Jouer n'importe quelle carte non-atout — cette carte ne peut pas remporter le pli.",
+        "option2": "Jouer une carte d'atout — elle bat toutes les cartes non-atout.",
+        "footer": "Le joueur qui a joué la carte la plus forte remporte le pli et commence le suivant. Il est permis de commencer un pli avec une carte d'atout."
       },
       "scoring": {
         "title": "Points",
-        "outcome": "Résultat",
-        "formula": "Formule",
-        "exampleHeader": "Exemple (contrat 3)",
-        "contractMet": "Contrat réussi",
-        "contractMissed": "Contrat manqué",
-        "summary": "Votre score total est la somme de tous les scores de manches. Positif signifie que vous avez rempli vos contrats ; négatif que vous avez sur- ou sous-annoncé."
+        "metTitle": "✓ Vous avez remporté exactement ce que vous avez annoncé",
+        "metBody": "+1, plus le nombre de plis remportés",
+        "missedTitle": "✗ Vous avez remporté plus ou moins que prévu",
+        "missedBody": "−1, moins l'écart entre l'annonce et le résultat",
+        "examplesTitle": "Exemples",
+        "summary": "Votre score total est la somme de tous les scores de manches."
       },
       "winning": {
         "title": "Victoire",
-        "body": "Le joueur avec le score total le plus élevé à la fin gagne. Mettez-vous d'accord avec votre groupe sur le nombre de manches à jouer, ou jouez jusqu'à ce que quelqu'un atteigne un score cible."
-      },
-      "quickExample": {
-        "title": "Exemple rapide"
+        "body": "Il n'y a pas de condition de fin fixe. La partie s'arrête quand le groupe le décide — quand le bar ferme, quand un joueur doit partir, ou simplement quand tout le monde est d'accord.",
+        "footer": "Quand la partie s'arrête, le joueur avec le score le plus élevé gagne."
       }
     }
   },
   "share": {
     "title": "Partager Whist",
-    "scanPrompt": "Scannez ce QR code pour obtenir l'application",
+    "scanPrompt": "Scannez ce QR code pour obtenir la dernière version de l'application",
     "orFollowLink": "Ou suivez ce lien"
   },
   "gameDetail": {
@@ -97,6 +112,7 @@
     "tricksPrompt": "Combien de plis sont joués cette manche ?",
     "tricksInRound": "Plis dans la manche",
     "next": "Suivant →",
+    "previous": "← Précédent",
     "done": "Terminer →",
     "phase": "Contrats — {{progress}}",
     "winPrompt": "Combien de plis allez-vous remporter ?",

@@ -4,7 +4,7 @@ This document describes the intended behaviour of the app for Claude to use as a
 
 ---
 
-## Game rules (Whist)
+## Business rules
 
 Whist is a trick-taking card game. The app is concerned only with score counting, not with enforcing game rules.
 
@@ -22,6 +22,12 @@ Whist is a trick-taking card game. The app is concerned only with score counting
 - "The first player" always refers to the first player of the current round.
 - **Round order** is the order in which players act within a round. It starts with the first player, then continues through the seat order as a circular queue: after the last seat, it wraps back to the first seat. Example: with seats [A, B, C, D] and first player C, the round order is [C, D, A, B].
 - **Contracts constraint:** The sum of all players' contracts in a round can **never** equal the total number of tricks in that round. This guarantees that at least one player will always score negatively in every round.
+
+---
+
+## Game rules (player-facing)
+
+The rules as displayed to the user in the app are in [specs/game-rules.md](game-rules.md).
 
 ---
 
@@ -59,7 +65,19 @@ The data model is in [specs/data-model.md](data-model.md).
 - No authentication, no accounts.
 - Dark mode support is a nice-to-have, not a requirement.
 
+## Localization
+
+The app is localized in three languages: **English** (`en`), **French** (`fr`), and **German** (`de`).
+The device language is detected automatically at startup; English is the fallback.
+All user-visible strings must have a translation in all three locale files (`locales/en.json`, `locales/fr.json`, `locales/de.json`).
+
 Full UX guidelines (layout, typography, color, interaction patterns, accessibility) are in [specs/UX.md](UX.md).
+
+## Share screen
+
+What the Share screen displays and which URL it points to is in [specs/share.md](share.md).
+
+---
 
 ## For later versions
 

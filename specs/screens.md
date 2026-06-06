@@ -4,9 +4,9 @@ Each screen is described as user stories. The canonical user stories are in [spe
 
 ---
 
-## 1. Home screen
+## 1. Navigation
 
-- As a player, I want to see a home screen with **New game**, **History**, **Rules**, and **Share** options so I can quickly start or review a game, consult the rules, or share the app.
+- As a player, I want a bottom tab bar with **Game**, **History**, **Rules**, and **Share** tabs so I can quickly start or review a game, consult the rules, or share the app.
 
 ---
 
@@ -91,6 +91,5 @@ The History screen has two sub-sections, selectable via a segmented control at t
 
 ## 10. Share screen
 
-- As a player, I want to share the app with friends.
-- The screen currently shows a **Coming soon** placeholder.
-- When implemented, it will open the native Android share sheet with a link or message to get the app.
+- As a player, I want to share the app with friends by scanning a QR code or tapping a link that points to the GitHub repository.
+- The exact layout and URL are defined in [specs/share.md](share.md).

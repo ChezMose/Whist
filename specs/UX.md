@@ -33,7 +33,7 @@ This document defines the design principles, interaction patterns, and visual co
 
 ## Color
 
-- Each player has an individual color chosen at player creation (palette of 32 colors) so players instantly recognise their row.
+- Each player has an individual color chosen at player creation (palette of 24 colors) so players instantly recognise their row.
 - Player colors should be distinguishable for the most common forms of color blindness (avoid red/green as the sole differentiator — prefer blue/orange or blue/yellow).
 - Neutral background: near-black (`#121212`) for the primary dark theme.
 - Surface cards: `#1E1E1E`.
@@ -64,7 +64,7 @@ This is the most-used screen; it deserves the most attention.
 
 ## New game setup screen
 
-- A seat list is shown (3 seats by default, up to 4).
+- A seat list is shown (3 seats by default, up to 8).
 - Tapping a seat opens the player selection flow (new player or existing player).
 - A **+** button adds a seat; seats can be removed down to a minimum of 3.
 - **Start game** is disabled until every seat has a player assigned.
@@ -76,8 +76,8 @@ This is the most-used screen; it deserves the most attention.
 
 - Flat list, most recent game at the top.
 - Each row: date (relative if < 7 days, e.g. "Yesterday"), player names with their final scores.
-- Swipe-to-delete with a confirmation snackbar ("Game deleted · Undo").
-- Empty state: friendly illustration + "No games yet. Start your first game!" with a CTA button.
+- Long-press a game row to delete it; a confirmation dialog is shown before deletion.
+- Empty state: "No games yet" with a message prompting the user to start their first game.
 
 ---
 
@@ -92,17 +92,15 @@ This is the most-used screen; it deserves the most attention.
 
 ## Navigation
 
-- Bottom tab bar with two tabs: **Game** (active session or new-game CTA) and **History**.
+- Bottom tab bar with four tabs: **Game**, **History**, **Rules**, and **Share**.
 - The Game tab badge shows the current round number when a game is in progress.
-- Back navigation is always available and never loses entered data without a confirmation prompt.
 
 ---
 
 ## Feedback & micro-interactions
 
-- Score update after round confirmation: brief animated counter increment (≤ 300 ms).
 - Invalid input: inline error label, no toast.
-- Destructive actions (end game, delete history): require an explicit confirmation — either a dialog with "Cancel / Confirm" or a swipe-with-undo pattern.
+- Destructive actions (end game, delete history): require an explicit confirmation dialog with "Cancel / Confirm".
 - Loading states: only show a spinner if an operation takes > 300 ms (local SQLite ops should not).
 
 ---

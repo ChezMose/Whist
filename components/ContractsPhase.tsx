@@ -7,7 +7,7 @@ import Stepper from './Stepper';
 
 export default function ContractsPhase() {
   const { t } = useTranslation();
-  const { game, activeRound, setTrickCount, setContract, confirmContract } = useGameStore();
+  const { game, activeRound, setTrickCount, setContract, confirmContract, previousContract } = useGameStore();
   const [trickCountConfirmed, setTrickCountConfirmed] = useState(false);
   const [trickCountValue, setTrickCountValue] = useState(1);
   const [value, setValue] = useState(0);
@@ -47,6 +47,7 @@ export default function ContractsPhase() {
   // ── Step 1+: player contract entry ────────────────────────────────────────
   const firstPlayerIndex = game.rounds.length % game.players.length;
   const player = game.players[(firstPlayerIndex + activeRound.currentPlayerIndex) % game.players.length];
+  const isFirst = activeRound.currentPlayerIndex === 0;
   const isLast = activeRound.currentPlayerIndex === game.players.length - 1;
   const progress = `${activeRound.currentPlayerIndex + 1} / ${game.players.length}`;
 
@@ -58,6 +59,17 @@ export default function ContractsPhase() {
     setContract(player.id, value);
     confirmContract();
     setValue(0);
+  };
+
+  const handlePrevious = () => {
+    if (isFirst) {
+      setTrickCountConfirmed(false);
+      return;
+    }
+    const prevIndex = activeRound.currentPlayerIndex - 1;
+    const prevPlayer = game.players[(firstPlayerIndex + prevIndex) % game.players.length];
+    setValue(activeRound.contracts[prevPlayer.id] ?? 0);
+    previousContract();
   };
 
   return (
@@ -81,16 +93,29 @@ export default function ContractsPhase() {
         )}
       </View>
 
-      <Pressable
-        style={[styles.nextBtn, blocked && styles.nextBtnDisabled]}
-        onPress={handleNext}
-        disabled={blocked}
-        accessibilityLabel={isLast ? t('contracts.done') : t('contracts.next')}
-      >
-        <Text style={[styles.nextTxt, blocked && styles.nextTxtDisabled]}>
-          {isLast ? t('contracts.done') : t('contracts.next')}
-        </Text>
-      </Pressable>
+      <View style={styles.btnRow}>
+        <Pressable
+          style={[styles.prevBtn, isFirst && styles.prevBtnDisabled]}
+          onPress={handlePrevious}
+          disabled={isFirst}
+          accessibilityLabel={t('contracts.previous')}
+        >
+          <Text style={[styles.prevTxt, isFirst && styles.prevTxtDisabled]}>
+            {t('contracts.previous')}
+          </Text>
+        </Pressable>
+
+        <Pressable
+          style={[styles.nextBtn, blocked && styles.nextBtnDisabled]}
+          onPress={handleNext}
+          disabled={blocked}
+          accessibilityLabel={isLast ? t('contracts.done') : t('contracts.next')}
+        >
+          <Text style={[styles.nextTxt, blocked && styles.nextTxtDisabled]}>
+            {isLast ? t('contracts.done') : t('contracts.next')}
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -106,9 +131,19 @@ const styles = StyleSheet.create({
   playerName: { fontSize: 28, fontWeight: 'bold', textAlign: 'center' },
   prompt: { fontSize: 16, color: Colors.textSecondary, textAlign: 'center' },
   warning: { fontSize: 14, color: Colors.danger, textAlign: 'center' },
+  btnRow: {
+    flexDirection: 'row', gap: 12, marginTop: 16,
+  },
+  prevBtn: {
+    flex: 1, borderRadius: 12, paddingVertical: 16, alignItems: 'center',
+    borderWidth: 1, borderColor: Colors.border,
+  },
+  prevBtnDisabled: { opacity: 0.3 },
+  prevTxt: { color: Colors.textSecondary, fontSize: 16, fontWeight: '600' },
+  prevTxtDisabled: { color: Colors.textDisabled },
   nextBtn: {
-    backgroundColor: Colors.accent, borderRadius: 12,
-    paddingVertical: 16, alignItems: 'center', marginTop: 16,
+    flex: 2, backgroundColor: Colors.accent, borderRadius: 12,
+    paddingVertical: 16, alignItems: 'center',
   },
   nextBtnDisabled: { backgroundColor: Colors.surfaceHigh, opacity: 0.5 },
   nextTxt: { color: '#000', fontSize: 18, fontWeight: 'bold' },

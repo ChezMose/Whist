@@ -1,10 +1,10 @@
 # User Stories
 
-## US-1 — App launch & home screen
+## US-1 — App launch & navigation
 
-- When the user opens the app, a splash screen is displayed while data is loading.
-- Once loading is complete, the home screen is shown with the title **Whist** and a menu.
-- The menu contains four entries: **New game**, **History**, **Rules**, and **Share**.
+- When the user opens the app, the main screen is shown.
+- Navigation is provided by a bottom tab bar with four tabs: **Game**, **History**, **Rules**, and **Share**.
+- The **Game** tab badge shows the current round number when a game is in progress.
 
 ## US-2 — New game setup screen
 
@@ -22,7 +22,7 @@
 When the user taps a seat, they are navigated to the **Player Selection** page, which presents three options:
 
 **New player**
-- The user enters a name and picks a color from a palette of 32 colors.
+- The user enters a name and picks a color from a palette of 24 colors.
 - The new player is saved to the database for reuse in future games.
 - The new player is assigned to the tapped seat.
 
@@ -80,8 +80,8 @@ When the user taps a seat, they are navigated to the **Player Selection** page, 
   - The user is redirected to the game screen, which now shows the updated total scores.
   - The main action button resets to **Contracts**, starting the next round.
 
-**Back / cancel during Contracts or Result entry**
-- Navigating back or cancelling mid-round triggers the end-of-game confirmation (same as tapping **Exit** from the game screen).
+**Quitting before round end**
+- Tapping **Exit** during the Contracts or Result phase triggers the end-of-game confirmation.
 - If confirmed, the current round is discarded and the game ends.
 
 ## US-7 — History
@@ -91,7 +91,7 @@ When the user taps a seat, they are navigated to the **Player Selection** page, 
 ### US-7a — Games sub-section
 
 - The **Games** sub-section displays the list of all past games stored in the database.
-- If no games have been played yet, the screen shows: *"Nothing here — you have to play first!"*
+- If no games have been played yet, the screen shows: *"No games yet"* with a message prompting the user to start their first game on the Game tab.
 - Each entry shows the list of players and their final score for that game.
 - Tapping a game opens a detail view showing the scores of every round for that game.
 
@@ -125,6 +125,6 @@ When the user taps a seat, they are navigated to the **Player Selection** page, 
 
 ## US-9 — Share
 
-- Tapping **Share** from the menu opens the share screen.
-- The screen currently shows a **Coming soon** placeholder with the app name and a short description.
-- When implemented, tapping the action will open the native Android share sheet so the user can send a link or message to friends.
+- Tapping the **Share** tab opens the share screen.
+- The screen lets users share the app with friends by pointing them to the GitHub repository via a QR code and a tappable link.
+- The exact layout and URL are defined in [specs/share.md](share.md).

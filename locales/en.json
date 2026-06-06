@@ -27,47 +27,62 @@
     "title": "Game Rules",
     "subtitle": "Whist — trick-taking card game",
     "sections": {
-      "theGame": {
-        "title": "The Game",
-        "body": "Whist is a trick-taking card game for 3 to 8 players. This app tracks your scores so you can focus on playing cards."
+      "whatIsATrick": {
+        "title": "What is a trick?",
+        "body": "A trick is one round of card play. Each player plays one card in turn. The player who played the strongest card wins the trick — they collect all the cards played and start the next trick.",
+        "goal": "The goal: predict how many tricks you will win before the round starts."
       },
-      "playersSeats": {
-        "title": "Players & Seats",
-        "body": "Each player occupies a seat. Seat order is set at the start and stays fixed for the whole game. You can play with 3 to 8 players."
+      "cardValues": {
+        "title": "Card Values",
+        "body": "Cards rank by face value. The Ace is the lowest card (worth 1) and the King is the highest.",
+        "trump": "If a trump suit is in play, any trump card beats any non-trump card, regardless of value."
       },
-      "rounds": {
-        "title": "Rounds",
-        "body": "A game is played over as many rounds as you like. Each round, one player is the First Player (marked with ★). The First Player role rotates through all seats after each round."
+      "theDeal": {
+        "title": "Rounds & The Deal",
+        "body": "The game is played over many rounds. Each round has a Dealer — the role passes to the next player after each round.",
+        "dealIntro": "The dealer deals cards one by one to each player, mixing face-up and face-down:",
+        "bullet1": "Face-down cards go into the player's hand — only they can see them.",
+        "bullet2": "Face-up cards stay on the table in front of the player — everyone can see them.",
+        "bullet3": "Every player receives the same total number of cards.",
+        "bullet4": "We recommend at least 5 cards per player in total.",
+        "trumpTitle": "Trump suit (optional, but recommended)",
+        "trumpBody": "After dealing, the dealer may flip the top card of the remaining deck — its suit becomes the trump suit for this round. Trump cards beat everything else.",
+        "tip": "Good starting point: 4 face-up + 5 face-down cards per player."
       },
       "contracts": {
         "title": "Contracts",
-        "body": "At the start of each round, each player declares their contract — the number of tricks they think they will win. Contracts are entered one player at a time, starting with the First Player."
+        "body": "Before any cards are played, each player declares their contract — how many tricks they think they will win. Players declare starting with the player to the left of the dealer, going around the table.",
+        "constraintLabel": "Dealer's constraint",
+        "constraintBody": "The dealer goes last and must choose a number that makes the total of all contracts different from the number of tricks in the round. This ensures at least one player will always lose points.",
+        "example": "Example: 4 players, 9 tricks. If the first 3 bid 2 + 3 + 2 = 7, the dealer cannot bid 2 (total would be 9). They must bid anything else."
       },
-      "results": {
-        "title": "Results",
-        "body": "After playing the round at the table, each player enters how many tricks they actually won. Scores are calculated automatically."
+      "playingARound": {
+        "title": "Playing a Round",
+        "body": "The player to the left of the dealer leads the first trick. Each player must play a card of the same suit as the first card played — this is the most important rule.",
+        "noSuitIntro": "If you have no card of that suit, you may:",
+        "option1": "Play any other non-trump card — this card cannot win the trick.",
+        "option2": "Play a trump card — this beats all non-trump cards.",
+        "footer": "The player who played the highest card wins the trick and leads the next one. You are allowed to start a trick with a trump card."
       },
       "scoring": {
         "title": "Scoring",
-        "outcome": "Outcome",
-        "formula": "Formula",
-        "exampleHeader": "Example (bid 3)",
-        "contractMet": "Contract met",
-        "contractMissed": "Contract missed",
-        "summary": "Your total score is the sum of all round scores. Positive means you met your contracts; negative means you over- or under-bid."
+        "metTitle": "✓ You won exactly what you bid",
+        "metBody": "+1, plus the number of tricks you won",
+        "missedTitle": "✗ You won more or fewer than you bid",
+        "missedBody": "−1, minus how far off you were",
+        "examplesTitle": "Examples",
+        "summary": "Your total score is the sum of all round scores."
       },
       "winning": {
         "title": "Winning",
-        "body": "The player with the highest total score at the end wins. Agree with your group beforehand on how many rounds to play, or play until someone reaches a target score."
-      },
-      "quickExample": {
-        "title": "Quick Example"
+        "body": "There is no fixed end condition. The game stops whenever the group decides — when the bar is closing, when a player has to leave, or simply when everyone agrees to stop.",
+        "footer": "When the game ends, the player with the highest total score wins."
       }
     }
   },
   "share": {
     "title": "Share Whist",
-    "scanPrompt": "Scan this QR code to get this app",
+    "scanPrompt": "Scan this QR code to get the latest version of this app",
     "orFollowLink": "Or follow this link"
   },
   "gameDetail": {
@@ -97,6 +112,7 @@
     "tricksPrompt": "How many tricks are played this round?",
     "tricksInRound": "Tricks in round",
     "next": "Next →",
+    "previous": "← Previous",
     "done": "Done →",
     "phase": "Contracts — {{progress}}",
     "winPrompt": "How many tricks will you win?",

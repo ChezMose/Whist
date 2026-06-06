@@ -12,7 +12,7 @@ Whist is a classic trick-taking card game. This app lets you keep score round by
 
 ### Step 1 — Download the APK
 
-Download the latest [whist.apk](release/whist.apk) to your Android phone.
+Download the latest [whist.apk](release/Whist-1.0.0) to your Android phone.
 
 ### Step 2 — Allow installation from unknown sources
 

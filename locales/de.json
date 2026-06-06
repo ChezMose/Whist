@@ -27,47 +27,62 @@
     "title": "Spielregeln",
     "subtitle": "Whist — Stichkartenspiel",
     "sections": {
-      "theGame": {
-        "title": "Das Spiel",
-        "body": "Whist ist ein Stichkartenspiel für 3 bis 8 Spieler. Diese App verfolgt deine Punkte, damit du dich auf das Spiel konzentrieren kannst."
+      "whatIsATrick": {
+        "title": "Was ist ein Stich?",
+        "body": "Ein Stich ist eine Runde Kartenspiel. Jeder Spieler spielt nacheinander eine Karte. Der Spieler mit der stärksten Karte gewinnt den Stich — er sammelt alle gespielten Karten ein und beginnt den nächsten Stich.",
+        "goal": "Das Ziel: Vorhersagen, wie viele Stiche du gewinnen wirst, bevor die Runde beginnt."
       },
-      "playersSeats": {
-        "title": "Spieler & Plätze",
-        "body": "Jeder Spieler belegt einen Platz. Die Platzreihenfolge wird zu Beginn festgelegt und bleibt für das gesamte Spiel bestehen. Du kannst mit 3 bis 8 Spielern spielen."
+      "cardValues": {
+        "title": "Kartenwerte",
+        "body": "Karten werden nach ihrem Nennwert geordnet. Das Ass ist die niedrigste Karte (Wert 1) und der König ist die höchste.",
+        "trump": "Wenn eine Trumpffarbe im Spiel ist, schlägt jede Trumpfkarte jede Nicht-Trumpfkarte, unabhängig vom Wert."
       },
-      "rounds": {
-        "title": "Runden",
-        "body": "Ein Spiel wird über beliebig viele Runden gespielt. In jeder Runde ist ein Spieler der Erste Spieler (markiert mit ★). Die Rolle des Ersten Spielers rotiert nach jeder Runde durch alle Plätze."
+      "theDeal": {
+        "title": "Runden & Ausgabe",
+        "body": "Das Spiel wird über mehrere Runden gespielt. In jeder Runde gibt es einen Geber — die Rolle geht nach jeder Runde an den nächsten Spieler über.",
+        "dealIntro": "Der Geber teilt die Karten einzeln an jeden Spieler aus, mit einer Mischung aus verdeckten und offenen Karten:",
+        "bullet1": "Verdeckte Karten kommen in die Hand des Spielers — nur er kann sie sehen.",
+        "bullet2": "Offene Karten bleiben offen auf dem Tisch vor dem Spieler — alle können sie sehen.",
+        "bullet3": "Jeder Spieler erhält die gleiche Gesamtzahl an Karten.",
+        "bullet4": "Wir empfehlen mindestens 5 Karten pro Spieler insgesamt.",
+        "trumpTitle": "Trumpf (optional, aber empfohlen)",
+        "trumpBody": "Nach der Ausgabe kann der Geber die oberste Karte des Stapels umdrehen — ihre Farbe wird für diese Runde zum Trumpf. Trumpfkarten schlagen alle anderen.",
+        "tip": "Guter Ausgangspunkt: 4 offene + 5 verdeckte Karten pro Spieler."
       },
       "contracts": {
         "title": "Ansagen",
-        "body": "Zu Beginn jeder Runde gibt jeder Spieler seine Ansage bekannt — die Anzahl der Stiche, die er zu gewinnen hofft. Die Ansagen werden nacheinander eingegeben, beginnend mit dem Ersten Spieler."
+        "body": "Bevor Karten gespielt werden, gibt jeder Spieler seine Ansage bekannt — wie viele Stiche er zu gewinnen hofft. Die Ansagen beginnen mit dem Spieler links vom Geber, reihum.",
+        "constraintLabel": "Einschränkung des Gebers",
+        "constraintBody": "Der Geber sagt zuletzt an und muss eine Zahl wählen, sodass die Summe aller Ansagen von der Stichzahl der Runde abweicht. Damit verliert garantiert mindestens ein Spieler Punkte.",
+        "example": "Beispiel: 4 Spieler, 9 Stiche. Wenn die ersten 3 Spieler 2 + 3 + 2 = 7 ansagen, darf der Geber nicht 2 ansagen (Summe wäre 9). Er muss etwas anderes ansagen."
       },
-      "results": {
-        "title": "Ergebnisse",
-        "body": "Nach dem Spielen der Runde gibt jeder Spieler ein, wie viele Stiche er tatsächlich gewonnen hat. Die Punkte werden automatisch berechnet."
+      "playingARound": {
+        "title": "Stich spielen",
+        "body": "Der Spieler links vom Geber eröffnet den ersten Stich mit einer beliebigen Karte. Jeder Spieler muss eine Karte in der gespielten Farbe ausspielen — das ist die wichtigste Regel.",
+        "noSuitIntro": "Hast du keine Karte dieser Farbe, darfst du:",
+        "option1": "Eine andere Nicht-Trumpfkarte spielen — diese Karte kann den Stich nicht gewinnen.",
+        "option2": "Eine Trumpfkarte spielen — diese schlägt alle Nicht-Trumpfkarten.",
+        "footer": "Der Spieler mit der stärksten Karte gewinnt den Stich und eröffnet den nächsten. Es ist erlaubt, einen Stich mit einer Trumpfkarte zu beginnen."
       },
       "scoring": {
         "title": "Punkte",
-        "outcome": "Ergebnis",
-        "formula": "Formel",
-        "exampleHeader": "Beispiel (Ansage 3)",
-        "contractMet": "Ansage erfüllt",
-        "contractMissed": "Ansage verfehlt",
-        "summary": "Dein Gesamtergebnis ist die Summe aller Rundenpunkte. Positiv bedeutet, du hast deine Ansagen erfüllt; negativ bedeutet, du hast zu viel oder zu wenig angesagt."
+        "metTitle": "✓ Du hast genau so viele Stiche gewonnen wie angesagt",
+        "metBody": "+1, plus die Anzahl der gewonnenen Stiche",
+        "missedTitle": "✗ Du hast mehr oder weniger gewonnen als angesagt",
+        "missedBody": "−1, minus die Abweichung von deiner Ansage",
+        "examplesTitle": "Beispiele",
+        "summary": "Deine Gesamtpunktzahl ist die Summe aller Rundenpunkte."
       },
       "winning": {
         "title": "Gewinner",
-        "body": "Der Spieler mit dem höchsten Gesamtergebnis gewinnt. Einigt euch vorher auf die Anzahl der Runden oder spielt, bis jemand ein Zielergebnis erreicht."
-      },
-      "quickExample": {
-        "title": "Schnellbeispiel"
+        "body": "Es gibt kein festes Spielende. Das Spiel endet, wann die Gruppe es entscheidet — wenn die Bar schließt, wenn ein Spieler gehen muss, oder wenn alle einverstanden sind aufzuhören.",
+        "footer": "Wenn das Spiel endet, gewinnt der Spieler mit der höchsten Gesamtpunktzahl."
       }
     }
   },
   "share": {
     "title": "Whist teilen",
-    "scanPrompt": "Scanne diesen QR-Code, um die App zu erhalten",
+    "scanPrompt": "Scanne diesen QR-Code, um die neueste Version der App zu erhalten",
     "orFollowLink": "Oder folge diesem Link"
   },
   "gameDetail": {
@@ -97,6 +112,7 @@
     "tricksPrompt": "Wie viele Stiche werden diese Runde gespielt?",
     "tricksInRound": "Stiche in der Runde",
     "next": "Weiter →",
+    "previous": "← Zurück",
     "done": "Fertig →",
     "phase": "Ansagen — {{progress}}",
     "winPrompt": "Wie viele Stiche wirst du gewinnen?",

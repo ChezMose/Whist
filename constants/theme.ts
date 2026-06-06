@@ -14,18 +14,22 @@ export const Colors = {
 
 export const PLAYER_COLORS: string[] = [
   '#FF1744', // vivid red
+  '#FF3D00', // red-orange
   '#FF6D00', // deep orange
   '#FF9800', // orange
   '#FFC400', // amber
   '#FFD600', // yellow
+  '#C6FF00', // yellow-lime
   '#AEEA00', // lime
   '#76FF03', // chartreuse
   '#00E676', // vivid green
+  '#64FFDA', // aquamarine
   '#1DE9B6', // vivid teal
   '#00E5FF', // vivid cyan
   '#40C4FF', // light blue
   '#0091EA', // sky blue
   '#2979FF', // blue
+  '#7C4DFF', // medium violet
   '#651FFF', // deep violet
   '#AA00FF', // purple
   '#D500F9', // vivid magenta

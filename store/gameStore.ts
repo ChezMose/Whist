@@ -31,6 +31,9 @@ interface GameState {
   setResult: (playerId: string, value: number) => void;
   confirmResult: () => void; // advances to next player or commits round
 
+  // Contract navigation
+  previousContract: () => void;
+
   // Game end
   exitGame: () => void;
 }
@@ -129,6 +132,12 @@ export const useGameStore = create<GameState>()(
           phase: 'idle',
           activeRound: null,
         });
+      },
+
+      previousContract: () => {
+        const { activeRound } = get();
+        if (!activeRound) return;
+        set({ activeRound: { ...activeRound, currentPlayerIndex: activeRound.currentPlayerIndex - 1 } });
       },
 
       exitGame: () =>
