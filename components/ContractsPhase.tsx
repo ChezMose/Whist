@@ -1,20 +1,60 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useGameStore } from '../store/gameStore';
 import { Colors } from '../constants/theme';
 import Stepper from './Stepper';
 
 export default function ContractsPhase() {
-  const { game, activeRound, setContract, confirmContract } = useGameStore();
+  const { t } = useTranslation();
+  const { game, activeRound, setTrickCount, setContract, confirmContract } = useGameStore();
+  const [trickCountConfirmed, setTrickCountConfirmed] = useState(false);
+  const [trickCountValue, setTrickCountValue] = useState(1);
   const [value, setValue] = useState(0);
 
   if (!game || !activeRound) return null;
 
-  const player = game.players[activeRound.currentPlayerIndex];
+  // ── Step 0: ask how many tricks are in this round ──────────────────────────
+  if (!trickCountConfirmed) {
+    const handleConfirmTrickCount = () => {
+      setTrickCount(trickCountValue);
+      setTrickCountConfirmed(true);
+    };
+
+    return (
+      <View style={styles.container}>
+        <Text style={styles.phase}>{t('contracts.roundSetup')}</Text>
+
+        <View style={styles.card}>
+          <Text style={styles.playerName}>{t('contracts.tricksLabel')}</Text>
+          <Text style={styles.prompt}>{t('contracts.tricksPrompt')}</Text>
+          <Stepper
+            value={trickCountValue}
+            onChange={setTrickCountValue}
+            min={1}
+            max={13}
+            accessibilityLabel={t('contracts.tricksInRound')}
+          />
+        </View>
+
+        <Pressable style={styles.nextBtn} onPress={handleConfirmTrickCount} accessibilityLabel={t('contracts.next')}>
+          <Text style={styles.nextTxt}>{t('contracts.next')}</Text>
+        </Pressable>
+      </View>
+    );
+  }
+
+  // ── Step 1+: player contract entry ────────────────────────────────────────
+  const firstPlayerIndex = game.rounds.length % game.players.length;
+  const player = game.players[(firstPlayerIndex + activeRound.currentPlayerIndex) % game.players.length];
   const isLast = activeRound.currentPlayerIndex === game.players.length - 1;
   const progress = `${activeRound.currentPlayerIndex + 1} / ${game.players.length}`;
 
+  const confirmedContractsSum = Object.values(activeRound.contracts).reduce((sum, v) => sum + v, 0);
+  const blocked = isLast && confirmedContractsSum + value === activeRound.trickCount;
+
   const handleNext = () => {
+    if (blocked) return;
     setContract(player.id, value);
     confirmContract();
     setValue(0);
@@ -22,22 +62,34 @@ export default function ContractsPhase() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.phase}>Contracts — {progress}</Text>
+      <Text style={styles.phase}>{t('contracts.phase', { progress })}</Text>
 
       <View style={[styles.card, { borderColor: player.color }]}>
         <Text style={[styles.playerName, { color: player.color }]} numberOfLines={1}>
           {player.name}
         </Text>
-        <Text style={styles.prompt}>How many tricks will you win?</Text>
+        <Text style={styles.prompt}>{t('contracts.winPrompt')}</Text>
         <Stepper
           value={value}
           onChange={setValue}
           accessibilityLabel={`${player.name} contract`}
         />
+        {blocked && (
+          <Text style={styles.warning}>
+            {t('contracts.blocked', { count: activeRound.trickCount })}
+          </Text>
+        )}
       </View>
 
-      <Pressable style={styles.nextBtn} onPress={handleNext} accessibilityLabel="Confirm contract">
-        <Text style={styles.nextTxt}>{isLast ? 'Done →' : 'Next →'}</Text>
+      <Pressable
+        style={[styles.nextBtn, blocked && styles.nextBtnDisabled]}
+        onPress={handleNext}
+        disabled={blocked}
+        accessibilityLabel={isLast ? t('contracts.done') : t('contracts.next')}
+      >
+        <Text style={[styles.nextTxt, blocked && styles.nextTxtDisabled]}>
+          {isLast ? t('contracts.done') : t('contracts.next')}
+        </Text>
       </Pressable>
     </View>
   );
@@ -53,9 +105,12 @@ const styles = StyleSheet.create({
   },
   playerName: { fontSize: 28, fontWeight: 'bold', textAlign: 'center' },
   prompt: { fontSize: 16, color: Colors.textSecondary, textAlign: 'center' },
+  warning: { fontSize: 14, color: Colors.danger, textAlign: 'center' },
   nextBtn: {
     backgroundColor: Colors.accent, borderRadius: 12,
     paddingVertical: 16, alignItems: 'center', marginTop: 16,
   },
+  nextBtnDisabled: { backgroundColor: Colors.surfaceHigh, opacity: 0.5 },
   nextTxt: { color: '#000', fontSize: 18, fontWeight: 'bold' },
+  nextTxtDisabled: { color: Colors.textSecondary },
 });

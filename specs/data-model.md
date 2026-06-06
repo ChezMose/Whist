@@ -9,6 +9,7 @@ type Player = {
 
 type Round = {
   roundNumber: number;
+  firstPlayerId: string;  // id of the first player for this round
   players: {
     [playerId: string]: {
       contract: number;  // tricks declared

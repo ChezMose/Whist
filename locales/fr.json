@@ -1,0 +1,145 @@
+{
+  "tabs": {
+    "game": "Partie",
+    "history": "Historique",
+    "rules": "Règles",
+    "share": "Partager"
+  },
+  "history": {
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "daysAgo": "Il y a {{count}} jours",
+    "deleteGame": {
+      "title": "Supprimer la partie ?",
+      "cancel": "Annuler",
+      "delete": "Supprimer"
+    },
+    "empty": {
+      "title": "Aucune partie",
+      "body": "Lancez votre première partie depuis l'onglet Partie !"
+    },
+    "segments": {
+      "games": "Parties",
+      "players": "Joueurs"
+    }
+  },
+  "rules": {
+    "title": "Règles du jeu",
+    "subtitle": "Whist — jeu de plis",
+    "sections": {
+      "theGame": {
+        "title": "Le Jeu",
+        "body": "Le Whist est un jeu de plis pour 3 à 8 joueurs. Cette application suit vos scores pour que vous puissiez vous concentrer sur le jeu."
+      },
+      "playersSeats": {
+        "title": "Joueurs & Places",
+        "body": "Chaque joueur occupe une place. L'ordre des places est défini au début et reste fixe pour toute la partie. Vous pouvez jouer de 3 à 8 joueurs."
+      },
+      "rounds": {
+        "title": "Manches",
+        "body": "Une partie se joue en autant de manches que vous le souhaitez. À chaque manche, un joueur est le Premier Joueur (marqué ★). Le rôle de Premier Joueur tourne entre toutes les places après chaque manche."
+      },
+      "contracts": {
+        "title": "Contrats",
+        "body": "Au début de chaque manche, chaque joueur annonce son contrat — le nombre de plis qu'il pense remporter. Les contrats sont saisis un joueur à la fois, en commençant par le Premier Joueur."
+      },
+      "results": {
+        "title": "Résultats",
+        "body": "Après avoir joué la manche à la table, chaque joueur saisit le nombre de plis réellement remportés. Les scores sont calculés automatiquement."
+      },
+      "scoring": {
+        "title": "Points",
+        "outcome": "Résultat",
+        "formula": "Formule",
+        "exampleHeader": "Exemple (contrat 3)",
+        "contractMet": "Contrat réussi",
+        "contractMissed": "Contrat manqué",
+        "summary": "Votre score total est la somme de tous les scores de manches. Positif signifie que vous avez rempli vos contrats ; négatif que vous avez sur- ou sous-annoncé."
+      },
+      "winning": {
+        "title": "Victoire",
+        "body": "Le joueur avec le score total le plus élevé à la fin gagne. Mettez-vous d'accord avec votre groupe sur le nombre de manches à jouer, ou jouez jusqu'à ce que quelqu'un atteigne un score cible."
+      },
+      "quickExample": {
+        "title": "Exemple rapide"
+      }
+    }
+  },
+  "share": {
+    "title": "Partager Whist",
+    "scanPrompt": "Scannez ce QR code pour obtenir l'application",
+    "orFollowLink": "Ou suivez ce lien"
+  },
+  "gameDetail": {
+    "deleteTitle": "Supprimer cette partie ?",
+    "deleteBody": "Cette action est irréversible.",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "loading": "Chargement…",
+    "round": "Manche",
+    "total": "Total",
+    "clearGame": "Effacer cette partie"
+  },
+  "activeGame": {
+    "endGameTitle": "Terminer la partie ?",
+    "endGameBody": "La manche en cours non terminée sera abandonnée.",
+    "cancel": "Annuler",
+    "endGame": "Terminer",
+    "round": "Manche {{n}}",
+    "exit": "Quitter",
+    "contractsHeader": "Contrats — Manche {{n}}",
+    "resultBtn": "Résultats →",
+    "contractsBtn": "Contrats →"
+  },
+  "contracts": {
+    "roundSetup": "Contrats — Paramétrage",
+    "tricksLabel": "Plis dans cette manche",
+    "tricksPrompt": "Combien de plis sont joués cette manche ?",
+    "tricksInRound": "Plis dans la manche",
+    "next": "Suivant →",
+    "done": "Terminer →",
+    "phase": "Contrats — {{progress}}",
+    "winPrompt": "Combien de plis allez-vous remporter ?",
+    "blocked": "Le total des contrats ne peut pas égaler {{count}} — ajustez votre annonce."
+  },
+  "newGame": {
+    "title": "Nouvelle Partie",
+    "cancel": "Annuler",
+    "seatEmpty": "Place {{n}} — appuyer pour assigner",
+    "addPlayer": "+ Ajouter un joueur",
+    "startGame": "Démarrer la partie"
+  },
+  "result": {
+    "phase": "Résultats — {{progress}}",
+    "contract": "Contrat : {{n}}",
+    "wonPrompt": "Combien de plis avez-vous remportés ?",
+    "confirmRound": "Confirmer la manche ✓",
+    "next": "Suivant →"
+  },
+  "players": {
+    "deleteTitle": "Supprimer le joueur ?",
+    "deleteBody": "« {{name}} » sera retiré de vos joueurs sauvegardés. Les parties passées ne sont pas affectées.",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "empty": "Aucun joueur sauvegardé.",
+    "edit": "Modifier",
+    "modalTitle": "Modifier le joueur",
+    "namePlaceholder": "Nom",
+    "colorLabel": "Couleur",
+    "save": "Enregistrer"
+  },
+  "playerSelect": {
+    "savedPlayers": "Joueurs sauvegardés",
+    "noSavedPlayers": "Aucun joueur sauvegardé",
+    "newPlayer": "Nouveau joueur",
+    "namePlaceholder": "Nom",
+    "colorLabel": "Couleur",
+    "createAndAdd": "Créer & Ajouter",
+    "backToList": "← Retour à la liste",
+    "newPlayerBtn": "+ Nouveau joueur"
+  },
+  "screens": {
+    "gameDetail": "Détail de la partie",
+    "selectPlayer": "Choisir un joueur"
+  }
+}

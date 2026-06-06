@@ -4,6 +4,7 @@ import {
   TextInput, ScrollView, KeyboardAvoidingView, Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { Colors, PLAYER_COLORS } from '../constants/theme';
 import { loadPlayers, savePlayer } from '../storage/players';
 import { useSetupStore } from '../store/setupStore';
@@ -12,6 +13,7 @@ import type { Player } from '../types';
 type Mode = 'list' | 'create';
 
 export default function PlayerSelectScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
   const { seats, pendingSeatIndex, assignSeat } = useSetupStore();
 
@@ -56,20 +58,20 @@ export default function PlayerSelectScreen() {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-          <Text style={styles.sectionTitle}>New player</Text>
+          <Text style={styles.sectionTitle}>{t('playerSelect.newPlayer')}</Text>
 
           <TextInput
             style={styles.input}
-            placeholder="Name"
+            placeholder={t('playerSelect.namePlaceholder')}
             placeholderTextColor={Colors.textSecondary}
             value={name}
-            onChangeText={(t) => setName(t.slice(0, 20))}
+            onChangeText={(v) => setName(v.slice(0, 20))}
             autoFocus
             maxLength={20}
-            accessibilityLabel="Player name"
+            accessibilityLabel={t('playerSelect.namePlaceholder')}
           />
 
-          <Text style={styles.label}>Color</Text>
+          <Text style={styles.label}>{t('playerSelect.colorLabel')}</Text>
           <View style={styles.palette}>
             {PLAYER_COLORS.map((c) => (
               <Pressable
@@ -85,15 +87,15 @@ export default function PlayerSelectScreen() {
             style={[styles.primaryBtn, !name.trim() && styles.primaryBtnOff]}
             onPress={createAndPick}
             disabled={!name.trim()}
-            accessibilityLabel="Create player"
+            accessibilityLabel={t('playerSelect.createAndAdd')}
           >
             <Text style={[styles.primaryTxt, !name.trim() && styles.primaryTxtOff]}>
-              Create &amp; Add
+              {t('playerSelect.createAndAdd')}
             </Text>
           </Pressable>
 
           <Pressable style={styles.secondaryBtn} onPress={() => setMode('list')}>
-            <Text style={styles.secondaryTxt}>← Back to list</Text>
+            <Text style={styles.secondaryTxt}>{t('playerSelect.backToList')}</Text>
           </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -108,7 +110,7 @@ export default function PlayerSelectScreen() {
         contentContainerStyle={styles.content}
         ListHeaderComponent={
           <Text style={styles.sectionTitle}>
-            {available.length ? 'Saved players' : 'No saved players yet'}
+            {available.length ? t('playerSelect.savedPlayers') : t('playerSelect.noSavedPlayers')}
           </Text>
         }
         renderItem={({ item }) => (
@@ -122,8 +124,8 @@ export default function PlayerSelectScreen() {
           </Pressable>
         )}
         ListFooterComponent={
-          <Pressable style={styles.newBtn} onPress={() => setMode('create')} accessibilityLabel="Create new player">
-            <Text style={styles.newTxt}>+ New player</Text>
+          <Pressable style={styles.newBtn} onPress={() => setMode('create')} accessibilityLabel={t('playerSelect.newPlayerBtn')}>
+            <Text style={styles.newTxt}>{t('playerSelect.newPlayerBtn')}</Text>
           </Pressable>
         }
       />

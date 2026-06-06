@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Whist — Règles du jeu</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --accent: #6c8ef7;
+      --accent2: #a78bfa;
+      --positive: #34d399;
+      --negative: #f87171;
+      --text: #e8eaf6;
+      --muted: #8b8fa8;
+      --border: #2e3250;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      padding: 0 16px 80px;
+    }
+
+    /* ── Header ────────────────────────────────── */
+    header {
+      text-align: center;
+      padding: 64px 0 48px;
+    }
+
+    .suit-row {
+      font-size: 2.4rem;
+      letter-spacing: .3em;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+
+    header h1 {
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p.subtitle {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    /* ── Layout ─────────────────────────────────── */
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    section {
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2 .icon {
+      font-size: 1.3em;
+      -webkit-text-fill-color: initial;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent2);
+      margin: 24px 0 10px;
+    }
+
+    p { margin-bottom: 12px; color: var(--text); }
+
+    /* ── Cards ──────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 16px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-card .num {
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-card .label {
+      color: var(--muted);
+      font-size: .9rem;
+      margin-top: 4px;
+    }
+
+    /* ── Steps ──────────────────────────────────── */
+    .steps {
+      counter-reset: step;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      position: relative;
+    }
+
+    .step:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 42px;
+      bottom: -4px;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .step-num {
+      counter-increment: step;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      font-weight: 700;
+      font-size: .95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .step-body {
+      padding: 8px 0 28px;
+    }
+
+    .step-body strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .step-body p {
+      color: var(--muted);
+      font-size: .95rem;
+      margin: 0;
+    }
+
+    /* ── Score table ─────────────────────────────── */
+    .score-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .95rem;
+    }
+
+    .score-table th {
+      background: var(--surface2);
+      color: var(--accent);
+      font-weight: 600;
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .score-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .score-table tr:last-child td { border-bottom: none; }
+    .score-table tr:hover td { background: var(--surface2); }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+
+    .badge-pos {
+      background: rgba(52,211,153,.15);
+      color: var(--positive);
+    }
+
+    .badge-neg {
+      background: rgba(248,113,113,.15);
+      color: var(--negative);
+    }
+
+    /* ── Example ─────────────────────────────────── */
+    .example-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .player-chip {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      min-width: 130px;
+      background: var(--surface2);
+    }
+
+    .player-chip .pname {
+      font-weight: 600;
+      font-size: .9rem;
+    }
+
+    .player-chip .pdetail {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .player-chip .pscore {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    .pscore.pos { color: var(--positive); }
+    .pscore.neg { color: var(--negative); }
+
+    /* ── Note box ─────────────────────────────────── */
+    .note {
+      background: rgba(108,142,247,.08);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 14px 18px;
+      margin: 16px 0;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    .note strong { color: var(--text); }
+
+    /* ── List ─────────────────────────────────────── */
+    ul, ol {
+      padding-left: 1.4em;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    li { margin-bottom: 6px; }
+
+    code {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: 'Cascadia Code', 'Fira Code', monospace;
+      font-size: .88em;
+      color: var(--accent2);
+    }
+
+    /* ── Divider ─────────────────────────────────── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    /* ── Footer ──────────────────────────────────── */
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: .85rem;
+      padding-top: 32px;
+    }
+
+    footer .suits { font-size: 1.4rem; letter-spacing: .2em; }
+
+    @media (max-width: 500px) {
+      .card { padding: 16px; }
+      .player-chip { min-width: 110px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ── Header ── -->
+  <header>
+    <div class="suit-row">♠ ♥ ♦ ♣</div>
+    <h1>Whist</h1>
+    <p class="subtitle">Jeu de cartes à plis · Guide complet des règles</p>
+  </header>
+
+  <!-- ── Présentation ── -->
+  <section>
+    <h2><span class="icon">🃏</span> Qu'est-ce que le Whist ?</h2>
+    <div class="card">
+      <p>
+        Le <strong>Whist</strong> est un jeu de cartes à plis. Chaque manche, les joueurs
+        font une annonce (leur <em>contrat</em>) puis jouent les cartes. L'objectif est
+        de remporter exactement le nombre de plis annoncé — ni plus, ni moins.
+      </p>
+      <p>
+        Les scores peuvent être positifs <strong>ou négatifs</strong> : tenir son contrat
+        rapporte des points, le manquer en fait perdre.
+      </p>
+    </div>
+
+    <div class="card-grid">
+      <div class="stat-card">
+        <div class="num">3 – 8</div>
+        <div class="label">joueurs</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">∞</div>
+        <div class="label">manches (illimitées)</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">±</div>
+        <div class="label">scores possibles</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Joueurs ── -->
+  <section>
+    <h2><span class="icon">👥</span> Les joueurs et les sièges</h2>
+    <div class="card">
+      <ul>
+        <li>Une partie réunit entre <strong>3 et 8 joueurs</strong> (recommandé : 3 à 8).</li>
+        <li>Chaque joueur occupe un <strong>siège numéroté</strong>. L'ordre des sièges
+            ne change pas au cours de la partie.</li>
+        <li>Le score de chaque joueur est un entier qui peut être positif ou négatif.</li>
+        <li>Le score global d'un joueur est la <strong>somme de ses scores sur toutes les manches</strong>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Manches ── -->
+  <section>
+    <h2><span class="icon">🔄</span> Les manches</h2>
+    <div class="card">
+      <p>
+        La partie est découpée en <strong>manches</strong>. Chaque manche comporte deux phases :
+      </p>
+
+      <h3>1. Phase des contrats</h3>
+      <p>
+        Chaque joueur, à tour de rôle en partant du <strong>premier joueur</strong> de la manche,
+        annonce combien de plis il pense remporter. Cette annonce s'appelle le <strong>contrat</strong>.
+      </p>
+
+      <h3>2. Phase des résultats</h3>
+      <p>
+        Après avoir joué la manche avec les cartes, chaque joueur saisit le nombre de plis
+        qu'il a <em>réellement</em> remportés. Les scores sont alors calculés automatiquement.
+      </p>
+
+      <div class="note">
+        <strong>Premier joueur :</strong> Le premier joueur de la manche 1 est le joueur
+        du siège 1. À chaque nouvelle manche, le rôle de premier joueur passe au siège suivant
+        dans l'ordre.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Calcul des scores ── -->
+  <section>
+    <h2><span class="icon">🧮</span> Calcul des scores</h2>
+    <div class="card">
+      <p>À la fin de chaque manche, le score de chaque joueur pour cette manche est :</p>
+
+      <table class="score-table">
+        <thead>
+          <tr>
+            <th>Situation</th>
+            <th>Formule</th>
+            <th>Exemple</th>
+            <th>Résultat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-pos">Contrat tenu</span></td>
+            <td><code>1 + plis remportés</code></td>
+            <td>Contrat 3, résultat 3</td>
+            <td><span class="badge badge-pos">+4</span></td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-neg">Contrat manqué</span></td>
+            <td><code>−(1 + |contrat − résultat|)</code></td>
+            <td>Contrat 3, résultat 1</td>
+            <td><span class="badge badge-neg">−3</span></td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-neg">Contrat manqué</span></td>
+            <td><code>−(1 + |contrat − résultat|)</code></td>
+            <td>Contrat 2, résultat 5</td>
+            <td><span class="badge badge-neg">−4</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note" style="margin-top:16px">
+        <strong>Conseil :</strong> Annoncer trop ou pas assez est également pénalisé.
+        La précision de votre contrat est aussi importante que le nombre de plis remportés.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Exemple de manche ── -->
+  <section>
+    <h2><span class="icon">📊</span> Exemple de manche</h2>
+    <div class="card">
+      <p>Partie à 4 joueurs. Manche 1 — premier joueur : <strong>Alice</strong>.</p>
+
+      <h3>Contrats déclarés</h3>
+      <div class="example-row">
+        <div class="player-chip">
+          <div class="pname">★ Alice</div>
+          <div class="pdetail">Contrat : 3 plis</div>
+        </div>
+        <div class="player-chip">
+          <div class="pname">Bob</div>
+          <div class="pdetail">Contrat : 2 plis</div>
+        </div>
+        <div class="player-chip">
+          <div class="pname">Clara</div>
+          <div class="pdetail">Contrat : 1 pli</div>
+        </div>
+        <div class="player-chip">
+          <div class="pname">David</div>
+          <div class="pdetail">Contrat : 4 plis</div>
+        </div>
+      </div>
+
+      <h3>Résultats après jeu</h3>
+      <div class="example-row">
+        <div class="player-chip">
+          <div class="pname">★ Alice</div>
+          <div class="pdetail">Contrat 3 → résultat 3</div>
+          <div class="pscore pos">+4</div>
+        </div>
+        <div class="player-chip">
+          <div class="pname">Bob</div>
+          <div class="pdetail">Contrat 2 → résultat 4</div>
+          <div class="pscore neg">−3</div>
+        </div>
+        <div class="player-chip">
+          <div class="pname">Clara</div>
+          <div class="pdetail">Contrat 1 → résultat 1</div>
+          <div class="pscore pos">+2</div>
+        </div>
+        <div class="player-chip">
+          <div class="pname">David</div>
+          <div class="pdetail">Contrat 4 → résultat 2</div>
+          <div class="pscore neg">−3</div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:20px">
+        Au début de la manche 2, c'est <strong>Bob</strong> (siège suivant) qui sera premier joueur.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Comment jouer avec l'app ── -->
+  <section>
+    <h2><span class="icon">📱</span> Comment jouer avec l'application</h2>
+    <div class="card">
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Ouvrir l'application</strong>
+            <p>L'écran d'accueil affiche deux options : <em>Nouvelle partie</em> et <em>Historique</em>.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Configurer les joueurs</strong>
+            <p>
+              3 sièges sont affichés par défaut. Appuyez sur chaque siège pour assigner un joueur
+              (nouveau ou existant). Ajoutez jusqu'à 8 sièges avec le bouton <strong>+</strong>.
+              Le bouton <em>Démarrer</em> s'active quand tous les sièges sont remplis.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Saisir les contrats</strong>
+            <p>
+              En début de manche, appuyez sur <strong>Contrats</strong>. Chaque joueur, à tour de rôle
+              en partant du premier joueur, déclare son contrat avec les boutons +/−.
+              Appuyez sur <em>Suivant</em> pour passer au joueur suivant.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Jouer la manche</strong>
+            <p>
+              L'écran de jeu affiche les contrats de chacun. Jouez la manche normalement avec vos cartes.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <strong>Saisir les résultats</strong>
+            <p>
+              Appuyez sur <strong>Résultats</strong>. Chaque joueur saisit le nombre de plis
+              réellement remportés. Les scores sont calculés et enregistrés automatiquement.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <strong>Répéter jusqu'à la fin</strong>
+            <p>
+              L'application passe automatiquement à la manche suivante. Pour terminer la partie,
+              appuyez sur <strong>Quitter</strong> et confirmez. Les résultats sont sauvegardés.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Historique ── -->
+  <section>
+    <h2><span class="icon">📖</span> Historique des parties</h2>
+    <div class="card">
+      <p>
+        L'application conserve un historique complet de toutes vos parties. Depuis l'écran d'accueil,
+        appuyez sur <strong>Historique</strong> pour y accéder.
+      </p>
+      <ul>
+        <li>Chaque entrée affiche les joueurs et leur score final.</li>
+        <li>Appuyez sur une partie pour voir le détail manche par manche.</li>
+        <li>Tout est stocké localement sur votre appareil — aucune connexion requise.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Résumé des règles ── -->
+  <section>
+    <h2><span class="icon">📋</span> Résumé rapide</h2>
+    <div class="card">
+      <ol>
+        <li><strong>Annoncez votre contrat</strong> — le nombre de plis que vous pensez remporter.</li>
+        <li><strong>Jouez la manche</strong> avec vos cartes.</li>
+        <li><strong>Saisissez votre résultat</strong> — le nombre de plis réellement remportés.</li>
+        <li>
+          <strong>Score :</strong>
+          <ul style="margin-top:6px">
+            <li>Contrat tenu → <span style="color:var(--positive)">+( 1 + plis remportés )</span></li>
+            <li>Contrat manqué → <span style="color:var(--negative)">−( 1 + |écart| )</span></li>
+          </ul>
+        </li>
+        <li><strong>Répétez</strong> pour chaque manche, le premier joueur tourne.</li>
+      </ol>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <footer>
+    <div class="suits">♠ ♥ ♦ ♣</div>
+    <p style="margin-top:10px">Whist · Application Android</p>
+  </footer>
+
+</div>
+</body>
+</html>

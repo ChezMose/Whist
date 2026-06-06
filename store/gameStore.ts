@@ -6,6 +6,7 @@ import type { Game, Player, Round, RoundEntry } from '../types';
 export type GamePhase = 'idle' | 'contracts' | 'result';
 
 interface ActiveRound {
+  trickCount: number;                  // total tricks in this round
   contracts: Record<string, number>;   // playerId -> declared tricks
   results: Record<string, number>;     // playerId -> actual tricks
   currentPlayerIndex: number;
@@ -21,6 +22,7 @@ interface GameState {
 
   // Contracts phase
   beginContracts: () => void;
+  setTrickCount: (count: number) => void;
   setContract: (playerId: string, value: number) => void;
   confirmContract: () => void; // advances to next player or returns to game screen
 
@@ -60,8 +62,13 @@ export const useGameStore = create<GameState>()(
       beginContracts: () =>
         set({
           phase: 'contracts',
-          activeRound: { contracts: {}, results: {}, currentPlayerIndex: 0 },
+          activeRound: { trickCount: 0, contracts: {}, results: {}, currentPlayerIndex: 0 },
         }),
+
+      setTrickCount: (count) =>
+        set((s) => ({
+          activeRound: s.activeRound ? { ...s.activeRound, trickCount: count } : s.activeRound,
+        })),
 
       setContract: (playerId, value) =>
         set((s) => ({
@@ -110,8 +117,11 @@ export const useGameStore = create<GameState>()(
           const result = activeRound.results[p.id] ?? 0;
           entries[p.id] = { contract, result, points: computePoints(contract, result) };
         }
+        const firstPlayerIndex = game.rounds.length % game.players.length;
         const round: Round = {
           roundNumber: game.rounds.length + 1,
+          firstPlayerId: game.players[firstPlayerIndex].id,
+          trickCount: activeRound.trickCount,
           players: entries,
         };
         set({

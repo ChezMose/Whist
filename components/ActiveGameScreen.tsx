@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useGameStore, selectTotals } from '../store/gameStore';
 import { saveGame } from '../storage/games';
 import { Colors } from '../constants/theme';
@@ -6,6 +7,7 @@ import ContractsPhase from './ContractsPhase';
 import ResultPhase from './ResultPhase';
 
 export default function ActiveGameScreen() {
+  const { t } = useTranslation();
   const { game, phase, activeRound, beginContracts, beginResult, exitGame } = useGameStore();
 
   if (!game) return null;
@@ -16,15 +18,17 @@ export default function ActiveGameScreen() {
   const totals = selectTotals(game);
   const currentRound = game.rounds.length + 1;
   const contractsEntered = activeRound !== null;
+  const firstPlayerIndex = game.rounds.length % game.players.length;
+  const firstPlayerId = game.players[firstPlayerIndex].id;
 
   const handleExit = () => {
     Alert.alert(
-      'End game?',
-      'The current unfinished round will be discarded.',
+      t('activeGame.endGameTitle'),
+      t('activeGame.endGameBody'),
       [
-        { text: 'Cancel', style: 'cancel' },
+        { text: t('activeGame.cancel'), style: 'cancel' },
         {
-          text: 'End game',
+          text: t('activeGame.endGame'),
           style: 'destructive',
           onPress: async () => {
             if (game.rounds.length > 0) {
@@ -40,42 +44,56 @@ export default function ActiveGameScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.roundLabel}>Round {currentRound}</Text>
-        <Pressable onPress={handleExit} style={styles.exitBtn} accessibilityLabel="Exit game">
-          <Text style={styles.exitTxt}>Exit</Text>
+        <Text style={styles.roundLabel}>{t('activeGame.round', { n: currentRound })}</Text>
+        <Pressable onPress={handleExit} style={styles.exitBtn} accessibilityLabel={t('activeGame.exit')}>
+          <Text style={styles.exitTxt}>{t('activeGame.exit')}</Text>
         </Pressable>
       </View>
 
       {contractsEntered && (
-        <Text style={styles.contractsHeader}>Contracts — Round {currentRound}</Text>
+        <Text style={styles.contractsHeader}>
+          {t('activeGame.contractsHeader', { n: currentRound })}
+        </Text>
       )}
 
       <ScrollView style={styles.list} contentContainerStyle={styles.listContent}>
-        {game.players.map((player) => (
-          <View key={player.id} style={[styles.row, { borderLeftColor: player.color }]}>
-            <Text
-              style={[styles.playerName, { color: player.color }]}
-              numberOfLines={1}
-              accessibilityLabel={`${player.name}`}
-            >
-              {player.name}
-            </Text>
-            {contractsEntered && (
+        {game.players.map((player) => {
+          const isFirst = player.id === firstPlayerId;
+          return (
+            <View key={player.id} style={[styles.row, { borderLeftColor: player.color }]}>
+              <View style={styles.nameContainer}>
+                <View
+                  style={[
+                    isFirst && styles.firstPlayerCircle,
+                    isFirst && { borderColor: player.color },
+                  ]}
+                  accessibilityLabel={isFirst ? `${player.name}, first player` : undefined}
+                >
+                  <Text
+                    style={[styles.playerName, { color: player.color }]}
+                    numberOfLines={1}
+                  >
+                    {player.name}
+                  </Text>
+                </View>
+              </View>
+              {contractsEntered && (
+                <Text
+                  style={styles.contract}
+                  accessibilityLabel={`${player.name} contract: ${activeRound.contracts[player.id] ?? 0}`}
+                >
+                  {activeRound.contracts[player.id] ?? 0}
+                </Text>
+              )}
               <Text
-                style={styles.contract}
-                accessibilityLabel={`${player.name} contract: ${activeRound.contracts[player.id] ?? 0}`}
+                style={styles.score}
+                accessibilityLabel={`${player.name} score: ${totals[player.id] ?? 0}`}
               >
-                {activeRound.contracts[player.id] ?? 0}
+                {totals[player.id] ?? 0}
               </Text>
-            )}
-            <Text
-              style={styles.score}
-              accessibilityLabel={`${player.name} score: ${totals[player.id] ?? 0}`}
-            >
-              {totals[player.id] ?? 0}
-            </Text>
-          </View>
-        ))}
+            </View>
+          );
+        })}
       </ScrollView>
 
       <View style={styles.footer}>
@@ -83,17 +101,17 @@ export default function ActiveGameScreen() {
           <Pressable
             style={styles.actionBtn}
             onPress={beginResult}
-            accessibilityLabel="Enter results for this round"
+            accessibilityLabel={t('activeGame.resultBtn')}
           >
-            <Text style={styles.actionTxt}>Result →</Text>
+            <Text style={styles.actionTxt}>{t('activeGame.resultBtn')}</Text>
           </Pressable>
         ) : (
           <Pressable
             style={styles.actionBtn}
             onPress={beginContracts}
-            accessibilityLabel="Enter contracts for this round"
+            accessibilityLabel={t('activeGame.contractsBtn')}
           >
-            <Text style={styles.actionTxt}>Contracts →</Text>
+            <Text style={styles.actionTxt}>{t('activeGame.contractsBtn')}</Text>
           </Pressable>
         )}
       </View>
@@ -122,7 +140,13 @@ const styles = StyleSheet.create({
     borderLeftWidth: 6, paddingHorizontal: 16, paddingVertical: 18,
     marginBottom: 12,
   },
-  playerName: { fontSize: 20, fontWeight: '600', flex: 1, marginRight: 12 },
+  nameContainer: { flex: 1, marginRight: 12, justifyContent: 'center' },
+  firstPlayerCircle: {
+    borderWidth: 2, borderRadius: 10,
+    paddingHorizontal: 8, paddingVertical: 4,
+    alignSelf: 'flex-start',
+  },
+  playerName: { fontSize: 20, fontWeight: '600' },
   contract: { fontSize: 22, fontWeight: '600', color: Colors.textSecondary, marginRight: 16 },
   score: { fontSize: 48, fontWeight: 'bold', color: Colors.textPrimary },
   footer: { padding: 16 },

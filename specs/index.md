@@ -8,6 +8,21 @@ This document describes the intended behaviour of the app for Claude to use as a
 
 Whist is a trick-taking card game. The app is concerned only with score counting, not with enforcing game rules.
 
+### Players and seats
+
+- A game has a minimum of 3 players and a maximum of 8 players (recommended: 3 to 8).
+- Each player has a score for the game, which is an integer (may be positive or negative).
+- Players occupy seats in the game. The seat order does not change during a game.
+- "Players in seat order" means all players listed in the order of their occupied seat.
+
+### Rounds and scoring
+
+- A game is divided into rounds. At the end of each round, scores for that round are calculated. A player's global score is the sum of their scores across all rounds.
+- Each round has a **first player**. The first player rotates through the seat order: the first player of round N+1 is the player in the next seat after the first player of round N.
+- "The first player" always refers to the first player of the current round.
+- **Round order** is the order in which players act within a round. It starts with the first player, then continues through the seat order as a circular queue: after the last seat, it wraps back to the first seat. Example: with seats [A, B, C, D] and first player C, the round order is [C, D, A, B].
+- **Contracts constraint:** The sum of all players' contracts in a round can **never** equal the total number of tricks in that round. This guarantees that at least one player will always score negatively in every round.
+
 ---
 
 ## User stories

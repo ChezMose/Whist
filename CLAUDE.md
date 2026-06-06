@@ -74,3 +74,7 @@ Use **expo-sqlite** (via `expo-sqlite/next` for the new async API) for structure
 ## Specifications
 
 Full product specs (game rules, screens, data model, scoring logic, UX constraints) are in [specs/index.md](specs/index.md). Read this file before implementing any feature.
+
+## French documentation (read-only)
+
+The `specs-fr/` folder is a French translation of `specs/` for human reading only. **Do not use it as a reference when implementing features** — always rely on `specs/` as the authoritative source. Never modify files in `specs-fr/`.

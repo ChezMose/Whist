@@ -12,6 +12,8 @@ export interface RoundEntry {
 
 export interface Round {
   roundNumber: number;
+  firstPlayerId?: string; // optional for backward compatibility with saved games
+  trickCount?: number;    // total tricks in this round (optional for backward compat)
   players: Record<string, RoundEntry>; // keyed by playerId
 }
 

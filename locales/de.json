@@ -1,0 +1,145 @@
+{
+  "tabs": {
+    "game": "Spiel",
+    "history": "Verlauf",
+    "rules": "Regeln",
+    "share": "Teilen"
+  },
+  "history": {
+    "today": "Heute",
+    "yesterday": "Gestern",
+    "daysAgo": "Vor {{count}} Tagen",
+    "deleteGame": {
+      "title": "Spiel löschen?",
+      "cancel": "Abbrechen",
+      "delete": "Löschen"
+    },
+    "empty": {
+      "title": "Noch keine Spiele",
+      "body": "Starte dein erstes Spiel im Reiter Spiel!"
+    },
+    "segments": {
+      "games": "Spiele",
+      "players": "Spieler"
+    }
+  },
+  "rules": {
+    "title": "Spielregeln",
+    "subtitle": "Whist — Stichkartenspiel",
+    "sections": {
+      "theGame": {
+        "title": "Das Spiel",
+        "body": "Whist ist ein Stichkartenspiel für 3 bis 8 Spieler. Diese App verfolgt deine Punkte, damit du dich auf das Spiel konzentrieren kannst."
+      },
+      "playersSeats": {
+        "title": "Spieler & Plätze",
+        "body": "Jeder Spieler belegt einen Platz. Die Platzreihenfolge wird zu Beginn festgelegt und bleibt für das gesamte Spiel bestehen. Du kannst mit 3 bis 8 Spielern spielen."
+      },
+      "rounds": {
+        "title": "Runden",
+        "body": "Ein Spiel wird über beliebig viele Runden gespielt. In jeder Runde ist ein Spieler der Erste Spieler (markiert mit ★). Die Rolle des Ersten Spielers rotiert nach jeder Runde durch alle Plätze."
+      },
+      "contracts": {
+        "title": "Ansagen",
+        "body": "Zu Beginn jeder Runde gibt jeder Spieler seine Ansage bekannt — die Anzahl der Stiche, die er zu gewinnen hofft. Die Ansagen werden nacheinander eingegeben, beginnend mit dem Ersten Spieler."
+      },
+      "results": {
+        "title": "Ergebnisse",
+        "body": "Nach dem Spielen der Runde gibt jeder Spieler ein, wie viele Stiche er tatsächlich gewonnen hat. Die Punkte werden automatisch berechnet."
+      },
+      "scoring": {
+        "title": "Punkte",
+        "outcome": "Ergebnis",
+        "formula": "Formel",
+        "exampleHeader": "Beispiel (Ansage 3)",
+        "contractMet": "Ansage erfüllt",
+        "contractMissed": "Ansage verfehlt",
+        "summary": "Dein Gesamtergebnis ist die Summe aller Rundenpunkte. Positiv bedeutet, du hast deine Ansagen erfüllt; negativ bedeutet, du hast zu viel oder zu wenig angesagt."
+      },
+      "winning": {
+        "title": "Gewinner",
+        "body": "Der Spieler mit dem höchsten Gesamtergebnis gewinnt. Einigt euch vorher auf die Anzahl der Runden oder spielt, bis jemand ein Zielergebnis erreicht."
+      },
+      "quickExample": {
+        "title": "Schnellbeispiel"
+      }
+    }
+  },
+  "share": {
+    "title": "Whist teilen",
+    "scanPrompt": "Scanne diesen QR-Code, um die App zu erhalten",
+    "orFollowLink": "Oder folge diesem Link"
+  },
+  "gameDetail": {
+    "deleteTitle": "Dieses Spiel löschen?",
+    "deleteBody": "Diese Aktion kann nicht rückgängig gemacht werden.",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "loading": "Laden…",
+    "round": "Runde",
+    "total": "Gesamt",
+    "clearGame": "Spiel löschen"
+  },
+  "activeGame": {
+    "endGameTitle": "Spiel beenden?",
+    "endGameBody": "Die aktuelle unvollendete Runde wird verworfen.",
+    "cancel": "Abbrechen",
+    "endGame": "Spiel beenden",
+    "round": "Runde {{n}}",
+    "exit": "Beenden",
+    "contractsHeader": "Ansagen — Runde {{n}}",
+    "resultBtn": "Ergebnis →",
+    "contractsBtn": "Ansagen →"
+  },
+  "contracts": {
+    "roundSetup": "Ansagen — Rundeneinrichtung",
+    "tricksLabel": "Stiche in dieser Runde",
+    "tricksPrompt": "Wie viele Stiche werden diese Runde gespielt?",
+    "tricksInRound": "Stiche in der Runde",
+    "next": "Weiter →",
+    "done": "Fertig →",
+    "phase": "Ansagen — {{progress}}",
+    "winPrompt": "Wie viele Stiche wirst du gewinnen?",
+    "blocked": "Die Gesamtansagen können nicht {{count}} betragen — passe deine Ansage an."
+  },
+  "newGame": {
+    "title": "Neues Spiel",
+    "cancel": "Abbrechen",
+    "seatEmpty": "Platz {{n}} — tippen zum Zuweisen",
+    "addPlayer": "+ Spieler hinzufügen",
+    "startGame": "Spiel starten"
+  },
+  "result": {
+    "phase": "Ergebnis — {{progress}}",
+    "contract": "Ansage: {{n}}",
+    "wonPrompt": "Wie viele Stiche hast du gewonnen?",
+    "confirmRound": "Runde bestätigen ✓",
+    "next": "Weiter →"
+  },
+  "players": {
+    "deleteTitle": "Spieler löschen?",
+    "deleteBody": "\"{{name}}\" wird aus deinen gespeicherten Spielern entfernt. Vergangene Spiele sind nicht betroffen.",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "empty": "Noch keine gespeicherten Spieler.",
+    "edit": "Bearbeiten",
+    "modalTitle": "Spieler bearbeiten",
+    "namePlaceholder": "Name",
+    "colorLabel": "Farbe",
+    "save": "Speichern"
+  },
+  "playerSelect": {
+    "savedPlayers": "Gespeicherte Spieler",
+    "noSavedPlayers": "Noch keine gespeicherten Spieler",
+    "newPlayer": "Neuer Spieler",
+    "namePlaceholder": "Name",
+    "colorLabel": "Farbe",
+    "createAndAdd": "Erstellen & Hinzufügen",
+    "backToList": "← Zurück zur Liste",
+    "newPlayerBtn": "+ Neuer Spieler"
+  },
+  "screens": {
+    "gameDetail": "Spieldetails",
+    "selectPlayer": "Spieler auswählen"
+  }
+}

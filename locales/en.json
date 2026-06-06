@@ -1,0 +1,145 @@
+{
+  "tabs": {
+    "game": "Game",
+    "history": "History",
+    "rules": "Rules",
+    "share": "Share"
+  },
+  "history": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "{{count}} days ago",
+    "deleteGame": {
+      "title": "Delete game?",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "empty": {
+      "title": "No games yet",
+      "body": "Start your first game on the Game tab!"
+    },
+    "segments": {
+      "games": "Games",
+      "players": "Players"
+    }
+  },
+  "rules": {
+    "title": "Game Rules",
+    "subtitle": "Whist — trick-taking card game",
+    "sections": {
+      "theGame": {
+        "title": "The Game",
+        "body": "Whist is a trick-taking card game for 3 to 8 players. This app tracks your scores so you can focus on playing cards."
+      },
+      "playersSeats": {
+        "title": "Players & Seats",
+        "body": "Each player occupies a seat. Seat order is set at the start and stays fixed for the whole game. You can play with 3 to 8 players."
+      },
+      "rounds": {
+        "title": "Rounds",
+        "body": "A game is played over as many rounds as you like. Each round, one player is the First Player (marked with ★). The First Player role rotates through all seats after each round."
+      },
+      "contracts": {
+        "title": "Contracts",
+        "body": "At the start of each round, each player declares their contract — the number of tricks they think they will win. Contracts are entered one player at a time, starting with the First Player."
+      },
+      "results": {
+        "title": "Results",
+        "body": "After playing the round at the table, each player enters how many tricks they actually won. Scores are calculated automatically."
+      },
+      "scoring": {
+        "title": "Scoring",
+        "outcome": "Outcome",
+        "formula": "Formula",
+        "exampleHeader": "Example (bid 3)",
+        "contractMet": "Contract met",
+        "contractMissed": "Contract missed",
+        "summary": "Your total score is the sum of all round scores. Positive means you met your contracts; negative means you over- or under-bid."
+      },
+      "winning": {
+        "title": "Winning",
+        "body": "The player with the highest total score at the end wins. Agree with your group beforehand on how many rounds to play, or play until someone reaches a target score."
+      },
+      "quickExample": {
+        "title": "Quick Example"
+      }
+    }
+  },
+  "share": {
+    "title": "Share Whist",
+    "scanPrompt": "Scan this QR code to get this app",
+    "orFollowLink": "Or follow this link"
+  },
+  "gameDetail": {
+    "deleteTitle": "Delete this game?",
+    "deleteBody": "This action cannot be undone.",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "loading": "Loading…",
+    "round": "Round",
+    "total": "Total",
+    "clearGame": "Clear this game"
+  },
+  "activeGame": {
+    "endGameTitle": "End game?",
+    "endGameBody": "The current unfinished round will be discarded.",
+    "cancel": "Cancel",
+    "endGame": "End game",
+    "round": "Round {{n}}",
+    "exit": "Exit",
+    "contractsHeader": "Contracts — Round {{n}}",
+    "resultBtn": "Result →",
+    "contractsBtn": "Contracts →"
+  },
+  "contracts": {
+    "roundSetup": "Contracts — Round setup",
+    "tricksLabel": "Tricks in this round",
+    "tricksPrompt": "How many tricks are played this round?",
+    "tricksInRound": "Tricks in round",
+    "next": "Next →",
+    "done": "Done →",
+    "phase": "Contracts — {{progress}}",
+    "winPrompt": "How many tricks will you win?",
+    "blocked": "Total contracts can't equal {{count}} — adjust your bid."
+  },
+  "newGame": {
+    "title": "New Game",
+    "cancel": "Cancel",
+    "seatEmpty": "Seat {{n}} — tap to assign",
+    "addPlayer": "+ Add player",
+    "startGame": "Start Game"
+  },
+  "result": {
+    "phase": "Result — {{progress}}",
+    "contract": "Contract: {{n}}",
+    "wonPrompt": "How many tricks did you win?",
+    "confirmRound": "Confirm round ✓",
+    "next": "Next →"
+  },
+  "players": {
+    "deleteTitle": "Delete player?",
+    "deleteBody": "\"{{name}}\" will be removed from your saved players. Past games are not affected.",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "empty": "No saved players yet.",
+    "edit": "Edit",
+    "modalTitle": "Edit player",
+    "namePlaceholder": "Name",
+    "colorLabel": "Color",
+    "save": "Save"
+  },
+  "playerSelect": {
+    "savedPlayers": "Saved players",
+    "noSavedPlayers": "No saved players yet",
+    "newPlayer": "New player",
+    "namePlaceholder": "Name",
+    "colorLabel": "Color",
+    "createAndAdd": "Create & Add",
+    "backToList": "← Back to list",
+    "newPlayerBtn": "+ New player"
+  },
+  "screens": {
+    "gameDetail": "Game Detail",
+    "selectPlayer": "Select Player"
+  }
+}

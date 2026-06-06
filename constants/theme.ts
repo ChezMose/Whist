@@ -12,50 +12,25 @@ export const Colors = {
   dangerDim: '#7B1A18',
 };
 
-/**
- * 32 player colors — colorblind-friendly.
- * Avoids pure red/green as sole differentiators.
- * Verified distinguishable under deuteranopia, protanopia, tritanopia simulation.
- */
 export const PLAYER_COLORS: string[] = [
-  // Blues
-  '#4FC3F7', // light blue
-  '#0288D1', // blue
-  '#01579B', // dark blue
-  '#80D8FF', // pale sky
-  // Oranges / Ambers
-  '#FFB300', // amber
-  '#FF8F00', // dark amber
+  '#FF1744', // vivid red
   '#FF6D00', // deep orange
-  '#FFCA28', // yellow-amber
-  // Purples / Violets
-  '#CE93D8', // lavender
-  '#AB47BC', // medium purple
-  '#6A1B9A', // deep purple
-  '#EA80FC', // light violet
-  // Cyans / Teals
-  '#4DB6AC', // teal
-  '#00897B', // dark teal
-  '#80CBC4', // pale teal
-  '#00BCD4', // cyan
-  // Pinks / Magentas
-  '#F48FB1', // pink
+  '#FF9800', // orange
+  '#FFC400', // amber
+  '#FFD600', // yellow
+  '#AEEA00', // lime
+  '#76FF03', // chartreuse
+  '#00E676', // vivid green
+  '#1DE9B6', // vivid teal
+  '#00E5FF', // vivid cyan
+  '#40C4FF', // light blue
+  '#0091EA', // sky blue
+  '#2979FF', // blue
+  '#651FFF', // deep violet
+  '#AA00FF', // purple
+  '#D500F9', // vivid magenta
   '#E91E63', // hot pink
-  '#AD1457', // dark pink
+  '#FF4081', // pink
   '#FF80AB', // light pink
-  // Limes / Yellows (safe — distinguishable from blue in all modes)
-  '#DCE775', // lime yellow
-  '#C6E900', // chartreuse
-  '#F9A825', // golden
-  '#FFF176', // pale yellow
-  // Neutrals / Whites
-  '#BDBDBD', // silver
-  '#90A4AE', // blue-grey
-  '#78909C', // steel
-  '#B0BEC5', // light steel
-  // Browns / Warm neutrals
-  '#BCAAA4', // warm grey
-  '#8D6E63', // brown
-  '#A1887F', // rose brown
-  '#D7CCC8', // pale blush
+  '#FF5252', // coral red
 ];

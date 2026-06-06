@@ -1,23 +1,44 @@
 import { useEffect, useState } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
-import { loadGame } from '../../storage/games';
+import { View, Text, ScrollView, StyleSheet, Pressable, Alert } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
+import { loadGame, deleteGame } from '../../storage/games';
 import { selectTotals } from '../../store/gameStore';
 import { Colors } from '../../constants/theme';
 import type { Game } from '../../types';
 
 export default function GameDetailScreen() {
+  const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
+  const router = useRouter();
   const [game, setGame] = useState<Game | null>(null);
 
   useEffect(() => {
     loadGame(id).then(setGame);
   }, [id]);
 
+  const handleClear = () => {
+    Alert.alert(
+      t('gameDetail.deleteTitle'),
+      t('gameDetail.deleteBody'),
+      [
+        { text: t('gameDetail.cancel'), style: 'cancel' },
+        {
+          text: t('gameDetail.delete'),
+          style: 'destructive',
+          onPress: async () => {
+            await deleteGame(id);
+            router.back();
+          },
+        },
+      ]
+    );
+  };
+
   if (!game) {
     return (
       <View style={styles.loading}>
-        <Text style={styles.loadingTxt}>Loading…</Text>
+        <Text style={styles.loadingTxt}>{t('gameDetail.loading')}</Text>
       </View>
     );
   }
@@ -27,13 +48,12 @@ export default function GameDetailScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Horizontal scroll for wide tables */}
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+
         <View>
-          {/* Header row */}
           <View style={styles.headerRow}>
             <View style={styles.labelCol}>
-              <Text style={styles.headerTxt}>Round</Text>
+              <Text style={styles.headerTxt}>{t('gameDetail.round')}</Text>
             </View>
             {game.players.map((p) => (
               <View key={p.id} style={[styles.dataCol, { width: colWidth }]}>
@@ -45,7 +65,6 @@ export default function GameDetailScreen() {
             ))}
           </View>
 
-          {/* Round rows */}
           <ScrollView style={styles.rounds} showsVerticalScrollIndicator={false}>
             {game.rounds.map((round) => (
               <View key={round.roundNumber} style={styles.dataRow}>
@@ -55,8 +74,18 @@ export default function GameDetailScreen() {
                 {game.players.map((p) => {
                   const entry = round.players[p.id];
                   const pts = entry?.points ?? 0;
+                  const isFirst = round.firstPlayerId === p.id;
                   return (
-                    <View key={p.id} style={[styles.dataCol, { width: colWidth }]}>
+                    <View
+                      key={p.id}
+                      style={[
+                        styles.dataCol,
+                        { width: colWidth },
+                        isFirst && styles.firstPlayerCell,
+                        isFirst && { borderColor: p.color },
+                      ]}
+                      accessibilityLabel={isFirst ? `${p.name} first player` : undefined}
+                    >
                       <Text
                         style={[styles.pts, pts >= 0 ? styles.ptsPos : styles.ptsNeg]}
                         accessibilityLabel={`${p.name} round ${round.roundNumber}: ${pts > 0 ? '+' : ''}${pts}`}
@@ -73,10 +102,9 @@ export default function GameDetailScreen() {
             ))}
           </ScrollView>
 
-          {/* Sticky totals row */}
           <View style={styles.totalsRow}>
             <View style={styles.labelCol}>
-              <Text style={styles.totalsLabel}>Total</Text>
+              <Text style={styles.totalsLabel}>{t('gameDetail.total')}</Text>
             </View>
             {game.players.map((p) => (
               <View key={p.id} style={[styles.dataCol, { width: colWidth }]}>
@@ -91,6 +119,14 @@ export default function GameDetailScreen() {
           </View>
         </View>
       </ScrollView>
+
+      <Pressable
+        style={styles.clearBtn}
+        onPress={handleClear}
+        accessibilityLabel={t('gameDetail.clearGame')}
+      >
+        <Text style={styles.clearTxt}>{t('gameDetail.clearGame')}</Text>
+      </Pressable>
     </View>
   );
 }
@@ -118,6 +154,7 @@ const styles = StyleSheet.create({
     width: 60, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 4,
   },
   dataCol: { alignItems: 'center', justifyContent: 'center', paddingHorizontal: 4 },
+  firstPlayerCell: { borderWidth: 2, borderRadius: 8 },
   headerTxt: { fontSize: 13, color: Colors.textSecondary, fontWeight: '600' },
   dot: { width: 8, height: 8, borderRadius: 4, marginBottom: 2 },
   headerName: { fontSize: 13, fontWeight: '700', textAlign: 'center' },
@@ -129,4 +166,10 @@ const styles = StyleSheet.create({
   totalsLabel: { fontSize: 13, fontWeight: 'bold', color: Colors.textSecondary },
   total: { fontSize: 22, fontWeight: 'bold', color: Colors.accent },
   rounds: { maxHeight: 420 },
+  clearBtn: {
+    margin: 16, padding: 16, borderRadius: 12,
+    borderWidth: 1, borderColor: Colors.danger,
+    alignItems: 'center',
+  },
+  clearTxt: { color: Colors.danger, fontSize: 16, fontWeight: '600' },
 });

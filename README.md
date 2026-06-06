@@ -1,55 +1,44 @@
 # Whist
 
-A personal Android app for tracking scores during a game of Whist played IRL. Whist is a trick-taking card game.
+A free Android app for tracking scores during a game of Whist played IRL.
 
-Keep score round by round, see who's winning at a glance, and browse the history of past games — all stored locally on the device.
+Whist is a classic trick-taking card game. This app lets you keep score round by round, see who's winning at a glance, and browse the full history of past games — all stored locally on your phone, no account needed.
 
-## Tech stack
+---
 
-- React Native + TypeScript
-- Expo (SDK 54, managed workflow)
-- expo-router for navigation
-- expo-sqlite for local game history
-- Zustand for in-game state
+## Download & Install
 
-## Run in development
+> **Note:** This app is not on the Play Store. You'll install it directly from a file — this is called *sideloading*. It takes 2 minutes and is completely safe.
 
-### 1. Prerequisites
+### Step 1 — Download the APK
 
-- [Node.js](https://nodejs.org) (v18 or later)
-- An Expo account — create one free at [expo.dev](https://expo.dev)
-- The **Expo Go** app installed on your Android device (available on the [Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent))
+Download the latest [whist.apk](release/whist.apk) to your Android phone.
 
-### 2. Install dependencies
+### Step 2 — Allow installation from unknown sources
 
-```bash
-npm install
-```
+Android blocks installs from outside the Play Store by default. You need to lift that restriction once:
 
-### 3. Log in to Expo
+1. Open **Settings**
+2. Go to **Apps** → **Special app access** → **Install unknown apps**
+3. Find your browser (Chrome, Firefox…) or your file manager
+4. Toggle **Allow from this source** on
 
-Required once so the tunnel can be created.
+The exact path varies slightly by Android version and manufacturer, but it's always somewhere in Settings → Apps.
 
-```bash
-npx expo login
-```
+### Step 3 — Install the APK
 
-### 4. Start the dev server
+Open the downloaded `.apk` file (check your notifications or Downloads folder) and tap **Install** when prompted.
 
-```bash
-npx expo start --tunnel --clear
-```
+### Step 4 — Open Whist
 
-The `--tunnel` flag routes traffic through ngrok so your phone doesn't need to be on the same Wi-Fi network as your PC. The `--clear` flag wipes the Metro cache to avoid stale bundle issues.
+Find the app in your launcher and start a game.
 
-### 5. Open the app on your phone
+---
 
-Scan the QR code that appears in the terminal using the **Expo Go** app on your Android device.
+## Updating
 
-## Build a release APK
+When a new version is available, repeat Steps 1 and 3 — the app will update in place and your game history will be preserved.
 
-```bash
-eas build --platform android --profile preview
-```
+---
 
-Requires an EAS account and a configured `eas.json`. The `preview` profile produces a sideloadable `.apk` file.
+Built with love by Mose and Claude

@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { Colors } from '../constants/theme';
 import { useGameStore } from '../store/gameStore';
 import { useSetupStore } from '../store/setupStore';
 
-const MAX_SEATS = 4;
+const MAX_SEATS = 8;
 const MIN_SEATS = 3;
 
 export default function NewGameScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
   const startGame = useGameStore((s) => s.startGame);
   const { seats, initSeats, setPendingSeat, addSeat, removeSeat } = useSetupStore();
@@ -31,7 +33,12 @@ export default function NewGameScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Text style={styles.title}>New Game</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>{t('newGame.title')}</Text>
+        <Pressable onPress={initSeats} style={styles.cancelBtn} accessibilityLabel={t('newGame.cancel')}>
+          <Text style={styles.cancelTxt}>{t('newGame.cancel')}</Text>
+        </Pressable>
+      </View>
 
       {seats.map((player, i) => (
         <View key={i} style={styles.seatRow}>
@@ -39,7 +46,9 @@ export default function NewGameScreen() {
             style={[styles.seatBtn, player ? { borderColor: player.color } : null]}
             onPress={() => openPlayerSelect(i)}
             accessibilityLabel={
-              player ? `Seat ${i + 1}: ${player.name}, tap to change` : `Seat ${i + 1}: tap to assign player`
+              player
+                ? `Seat ${i + 1}: ${player.name}, tap to change`
+                : `Seat ${i + 1}: tap to assign player`
             }
           >
             {player ? (
@@ -50,7 +59,7 @@ export default function NewGameScreen() {
                 </Text>
               </>
             ) : (
-              <Text style={styles.seatEmpty}>Seat {i + 1} — tap to assign</Text>
+              <Text style={styles.seatEmpty}>{t('newGame.seatEmpty', { n: i + 1 })}</Text>
             )}
           </Pressable>
 
@@ -68,8 +77,8 @@ export default function NewGameScreen() {
       ))}
 
       {seats.length < MAX_SEATS && (
-        <Pressable style={styles.addBtn} onPress={addSeat} accessibilityLabel="Add a seat">
-          <Text style={styles.addTxt}>+ Add player</Text>
+        <Pressable style={styles.addBtn} onPress={addSeat} accessibilityLabel={t('newGame.addPlayer')}>
+          <Text style={styles.addTxt}>{t('newGame.addPlayer')}</Text>
         </Pressable>
       )}
 
@@ -77,9 +86,9 @@ export default function NewGameScreen() {
         style={[styles.startBtn, !allFilled && styles.startBtnOff]}
         onPress={handleStart}
         disabled={!allFilled}
-        accessibilityLabel="Start game"
+        accessibilityLabel={t('newGame.startGame')}
       >
-        <Text style={[styles.startTxt, !allFilled && styles.startTxtOff]}>Start Game</Text>
+        <Text style={[styles.startTxt, !allFilled && styles.startTxtOff]}>{t('newGame.startGame')}</Text>
       </Pressable>
     </ScrollView>
   );
@@ -88,7 +97,12 @@ export default function NewGameScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   content: { padding: 16, paddingBottom: 40 },
-  title: { fontSize: 28, fontWeight: 'bold', color: Colors.textPrimary, marginBottom: 24 },
+  header: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24,
+  },
+  title: { fontSize: 28, fontWeight: 'bold', color: Colors.textPrimary },
+  cancelBtn: { paddingHorizontal: 12, paddingVertical: 8 },
+  cancelTxt: { color: Colors.danger, fontSize: 16 },
   seatRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 12 },
   seatBtn: {
     flex: 1, flexDirection: 'row', alignItems: 'center',

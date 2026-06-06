@@ -13,7 +13,7 @@ interface SetupState {
 }
 
 const MIN_SEATS = 3;
-const MAX_SEATS = 4;
+const MAX_SEATS = 8;
 
 export const useSetupStore = create<SetupState>((set, get) => ({
   seats: [null, null, null],

@@ -6,7 +6,7 @@ Each screen is described as user stories. The canonical user stories are in [spe
 
 ## 1. Home screen
 
-- As a player, I want to see a home screen with **New game** and **History** options so I can quickly start or review a game.
+- As a player, I want to see a home screen with **New game**, **History**, **Rules**, and **Share** options so I can quickly start or review a game, consult the rules, or share the app.
 
 ---
 
@@ -14,8 +14,9 @@ Each screen is described as user stories. The canonical user stories are in [spe
 
 - As a player, I want to see a list of seats (3 by default) so I can assign a player to each one.
 - As a player, I want to tap a seat to open the player selection flow.
-- As a player, I want to add an extra seat (up to 4 total) so more players can join.
+- As a player, I want to add an extra seat (up to 8 total) so more players can join.
 - As a player, I want **Start game** to become enabled only when every seat has a player assigned.
+- As a player, I want a **Cancel** button in the top-right corner (same style as the Exit button on the game screen) so I can discard the setup and return to the initial state.
 
 ---
 
@@ -40,7 +41,9 @@ Each screen is described as user stories. The canonical user stories are in [spe
 
 ## 5. Contracts phase
 
+- As a player, I want to enter the number of tricks in the round before declaring contracts, so the app can enforce the contracts constraint.
 - As a player, I want each player to declare their contract (tricks they expect to win) using a stepper, one at a time.
+- As a player (last to declare), I want the **Next** button to be disabled if my contract would make the total equal to the round's trick count, so the constraint that at least one player scores negatively is always enforced.
 - As a player, I want to be returned to the game screen with contracts displayed once all players have entered theirs.
 
 ---
@@ -55,12 +58,39 @@ Each screen is described as user stories. The canonical user stories are in [spe
 
 ## 7. History screen
 
+The History screen has two sub-sections, selectable via a segmented control at the top.
+
+### 7a. Games sub-section (default)
+
 - As a player, I want to see a chronological list of past games (most recent first).
 - As a player, I want each entry to show the players and their final score for that game.
 - As a player, I want to tap a game to see its round-by-round detail.
+
+### 7b. Players sub-section
+
+- As a player, I want to see a list of all saved players so I can manage them.
+- As a player, I want to tap **Edit** next to a player to rename them and/or change their color.
+- As a player, I want to tap **Delete** next to a player and confirm to remove them from the database (past games unaffected).
 
 ---
 
 ## 8. Game detail
 
 - As a player, I want to see each player's score for every round and their running total.
+- As a player, I want to delete a game from its detail view by tapping **Clear this game** and confirming, so I can remove unwanted records from the history.
+
+---
+
+## 9. Rules screen
+
+- As a player, I want to read the game rules inside the app so I can check scoring or explain the game to newcomers without leaving the table.
+- The screen explains: player count, rounds, the First Player rotation, contracts, results, and the scoring formula.
+- Scoring examples are shown inline (e.g. bid 3 won 3 → +4; bid 3 won 2 → −2).
+
+---
+
+## 10. Share screen
+
+- As a player, I want to share the app with friends.
+- The screen currently shows a **Coming soon** placeholder.
+- When implemented, it will open the native Android share sheet with a link or message to get the app.

@@ -1,17 +1,20 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useGameStore } from '../store/gameStore';
 import { saveGame } from '../storage/games';
 import { Colors } from '../constants/theme';
 import Stepper from './Stepper';
 
 export default function ResultPhase() {
+  const { t } = useTranslation();
   const { game, activeRound, setResult, confirmResult } = useGameStore();
   const [value, setValue] = useState(0);
 
   if (!game || !activeRound) return null;
 
-  const player = game.players[activeRound.currentPlayerIndex];
+  const firstPlayerIndex = game.rounds.length % game.players.length;
+  const player = game.players[(firstPlayerIndex + activeRound.currentPlayerIndex) % game.players.length];
   const contract = activeRound.contracts[player.id] ?? 0;
   const isLast = activeRound.currentPlayerIndex === game.players.length - 1;
   const progress = `${activeRound.currentPlayerIndex + 1} / ${game.players.length}`;
@@ -32,14 +35,14 @@ export default function ResultPhase() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.phase}>Result — {progress}</Text>
+      <Text style={styles.phase}>{t('result.phase', { progress })}</Text>
 
       <View style={[styles.card, { borderColor: player.color }]}>
         <Text style={[styles.playerName, { color: player.color }]} numberOfLines={1}>
           {player.name}
         </Text>
-        <Text style={styles.contractLine}>Contract: {contract}</Text>
-        <Text style={styles.prompt}>How many tricks did you win?</Text>
+        <Text style={styles.contractLine}>{t('result.contract', { n: contract })}</Text>
+        <Text style={styles.prompt}>{t('result.wonPrompt')}</Text>
         <Stepper
           value={value}
           onChange={setValue}
@@ -47,8 +50,12 @@ export default function ResultPhase() {
         />
       </View>
 
-      <Pressable style={styles.nextBtn} onPress={handleNext} accessibilityLabel="Confirm result">
-        <Text style={styles.nextTxt}>{isLast ? 'Confirm round ✓' : 'Next →'}</Text>
+      <Pressable
+        style={styles.nextBtn}
+        onPress={handleNext}
+        accessibilityLabel={isLast ? t('result.confirmRound') : t('result.next')}
+      >
+        <Text style={styles.nextTxt}>{isLast ? t('result.confirmRound') : t('result.next')}</Text>
       </Pressable>
     </View>
   );
