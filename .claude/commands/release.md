@@ -28,6 +28,9 @@ Release a new version of the Whist APK to GitHub Releases and update the README.
    Download the latest [Whist-X.Y.Z.apk](https://github.com/ChezMose/Whist/releases/download/vX.Y.Z/Whist-X.Y.Z.apk)
    ```
 
-7. **Commit and push** `README.md` with message: `Release v<newVersion>`.
+7. **Ask the user what to commit** using AskUserQuestion:
+   - Question: "What should be committed?" with options:
+     - "Only the build (README.md)" — commit and push only `README.md` with message `Release v<newVersion>`
+     - "Everything (README + all uncommitted changes)" — run the equivalent of "commit and push all": stage all modified/untracked files (excluding gitignored), commit with message `Release v<newVersion>`, and push
 
 8. **Report** the new GitHub release URL to the user.
