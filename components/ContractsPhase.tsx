@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useGameStore } from '../store/gameStore';
@@ -7,10 +7,28 @@ import Stepper from './Stepper';
 
 export default function ContractsPhase() {
   const { t } = useTranslation();
-  const { game, activeRound, setTrickCount, setContract, confirmContract, previousContract } = useGameStore();
-  const [trickCountConfirmed, setTrickCountConfirmed] = useState(false);
-  const [trickCountValue, setTrickCountValue] = useState(1);
+  const {
+    game, activeRound,
+    setTrickCount, setContract, confirmContract, previousContract,
+    cancelContracts,
+  } = useGameStore();
+
+  const [trickCountConfirmed, setTrickCountConfirmed] = useState(
+    () => (activeRound?.trickCount ?? 0) > 0,
+  );
+  const [trickCountValue, setTrickCountValue] = useState(
+    () => activeRound?.trickCount || 1,
+  );
   const [value, setValue] = useState(0);
+
+  const currentPlayerIndex = activeRound?.currentPlayerIndex ?? 0;
+
+  useEffect(() => {
+    if (!game || !activeRound || !trickCountConfirmed) return;
+    const firstIdx = game.rounds.length % game.players.length;
+    const p = game.players[(firstIdx + activeRound.currentPlayerIndex) % game.players.length];
+    setValue(activeRound.contracts[p.id] ?? 0);
+  }, [currentPlayerIndex, trickCountConfirmed]);
 
   if (!game || !activeRound) return null;
 
@@ -37,9 +55,19 @@ export default function ContractsPhase() {
           />
         </View>
 
-        <Pressable style={styles.nextBtn} onPress={handleConfirmTrickCount} accessibilityLabel={t('contracts.next')}>
-          <Text style={styles.nextTxt}>{t('contracts.next')}</Text>
-        </Pressable>
+        <View style={styles.btnRow}>
+          <Pressable
+            style={styles.prevBtn}
+            onPress={cancelContracts}
+            accessibilityLabel={t('contracts.previous')}
+          >
+            <Text style={styles.prevTxt}>{t('contracts.previous')}</Text>
+          </Pressable>
+
+          <Pressable style={styles.nextBtn} onPress={handleConfirmTrickCount} accessibilityLabel={t('contracts.next')}>
+            <Text style={styles.nextTxt}>{t('contracts.next')}</Text>
+          </Pressable>
+        </View>
       </View>
     );
   }
@@ -58,17 +86,13 @@ export default function ContractsPhase() {
     if (blocked) return;
     setContract(player.id, value);
     confirmContract();
-    setValue(0);
   };
 
   const handlePrevious = () => {
     if (isFirst) {
-      setTrickCountConfirmed(false);
+      cancelContracts();
       return;
     }
-    const prevIndex = activeRound.currentPlayerIndex - 1;
-    const prevPlayer = game.players[(firstPlayerIndex + prevIndex) % game.players.length];
-    setValue(activeRound.contracts[prevPlayer.id] ?? 0);
     previousContract();
   };
 
@@ -95,14 +119,11 @@ export default function ContractsPhase() {
 
       <View style={styles.btnRow}>
         <Pressable
-          style={[styles.prevBtn, isFirst && styles.prevBtnDisabled]}
+          style={styles.prevBtn}
           onPress={handlePrevious}
-          disabled={isFirst}
           accessibilityLabel={t('contracts.previous')}
         >
-          <Text style={[styles.prevTxt, isFirst && styles.prevTxtDisabled]}>
-            {t('contracts.previous')}
-          </Text>
+          <Text style={styles.prevTxt}>{t('contracts.previous')}</Text>
         </Pressable>
 
         <Pressable
@@ -128,22 +149,20 @@ const styles = StyleSheet.create({
     borderLeftWidth: 6, padding: 24,
     alignItems: 'center', justifyContent: 'center', gap: 24,
   },
-  playerName: { fontSize: 28, fontWeight: 'bold', textAlign: 'center' },
+  playerName: { fontSize: 28, fontWeight: 'bold', textAlign: 'center', color: Colors.textPrimary },
   prompt: { fontSize: 16, color: Colors.textSecondary, textAlign: 'center' },
   warning: { fontSize: 14, color: Colors.danger, textAlign: 'center' },
   btnRow: {
     flexDirection: 'row', gap: 12, marginTop: 16,
   },
   prevBtn: {
-    flex: 1, borderRadius: 12, paddingVertical: 16, alignItems: 'center',
+    flex: 1, borderRadius: 12, height: 56, alignItems: 'center', justifyContent: 'center',
     borderWidth: 1, borderColor: Colors.border,
   },
-  prevBtnDisabled: { opacity: 0.3 },
   prevTxt: { color: Colors.textSecondary, fontSize: 16, fontWeight: '600' },
-  prevTxtDisabled: { color: Colors.textDisabled },
   nextBtn: {
-    flex: 2, backgroundColor: Colors.accent, borderRadius: 12,
-    paddingVertical: 16, alignItems: 'center',
+    flex: 1, backgroundColor: Colors.accent, borderRadius: 12,
+    height: 56, alignItems: 'center', justifyContent: 'center',
   },
   nextBtnDisabled: { backgroundColor: Colors.surfaceHigh, opacity: 0.5 },
   nextTxt: { color: '#000', fontSize: 18, fontWeight: 'bold' },

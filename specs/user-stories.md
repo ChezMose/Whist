@@ -62,7 +62,7 @@ When the user taps a seat, they are navigated to the **Player Selection** page, 
 - Each player, in **round order**, declares how many tricks they think they will win.
 - The input uses an **up/down stepper** (increment/decrement).
 - A **Next** button advances to the next player; the last player's **Next** confirms all contracts.
-- A **Previous** button moves back to the previous player. That button is disabled for the first player.
+- A **Previous** button moves back to the previous player. For the first player, that button will cancel the contract phase and go back to the game screen, as if the round did not start (it cancels launching the round).
 - **Contracts constraint — last player:** When the last player's contract count is being entered, the app computes the sum of all previously entered contracts plus the last player's current value. If that sum equals the total number of tricks in the round, the **Next** button is disabled — the user cannot confirm contracts until they adjust the last player's value so the total differs from the round's trick count.
 - Once all contracts are entered, the user is returned to the game screen.
 
@@ -71,6 +71,8 @@ When the user taps a seat, they are navigated to the **Player Selection** page, 
 - Tapping **Result** starts the result entry flow for the current round.
 - The screen is similar to the Contracts screen: each player in **round order** fills in the number of tricks they actually won, using an up/down stepper. Their contract is shown as a reminder.
 - A **Next** button advances to the next player; the last player's **Next** confirms all results.
+- **Results constraint — last player:** The last player's **Next** button is disabled if the total of all entered results (including the last player's current value) differs from the round's trick count — every trick must be accounted for.
+- A **Previous** button moves back to the previous player. For the first player, that button cancels the result phase and returns to the game screen, as if the Result button was never tapped (contracts are preserved).
 - Score calculation per player for the round:
   - **Contract met:** `score = 1 + tricks won`
   - **Contract missed:** `score = -(1 + |contract - result|)`

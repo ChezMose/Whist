@@ -104,7 +104,8 @@
     "exit": "Exit",
     "contractsHeader": "Contracts — Round {{n}}",
     "resultBtn": "Result →",
-    "contractsBtn": "Contracts →"
+    "contractsBtn": "Contracts →",
+    "previous": "← Previous"
   },
   "contracts": {
     "roundSetup": "Contracts — Round setup",
@@ -130,7 +131,9 @@
     "contract": "Contract: {{n}}",
     "wonPrompt": "How many tricks did you win?",
     "confirmRound": "Confirm round ✓",
-    "next": "Next →"
+    "next": "Next →",
+    "previous": "← Previous",
+    "blocked": "Total tricks must equal {{count}} — adjust your result."
   },
   "players": {
     "deleteTitle": "Delete player?",

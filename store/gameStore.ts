@@ -33,6 +33,15 @@ interface GameState {
 
   // Contract navigation
   previousContract: () => void;
+  cancelContracts: () => void;
+
+  // Result navigation
+  previousResult: () => void;
+  cancelResult: () => void;
+
+  // Round navigation
+  previousRound: () => void;
+  goBackToContracts: () => void;
 
   // Game end
   exitGame: () => void;
@@ -138,6 +147,44 @@ export const useGameStore = create<GameState>()(
         const { activeRound } = get();
         if (!activeRound) return;
         set({ activeRound: { ...activeRound, currentPlayerIndex: activeRound.currentPlayerIndex - 1 } });
+      },
+
+      cancelContracts: () =>
+        set({ phase: 'idle', activeRound: null }),
+
+      previousResult: () => {
+        const { activeRound } = get();
+        if (!activeRound) return;
+        set({ activeRound: { ...activeRound, currentPlayerIndex: activeRound.currentPlayerIndex - 1 } });
+      },
+
+      cancelResult: () => {
+        const { activeRound } = get();
+        if (!activeRound) return;
+        set({ phase: 'idle', activeRound: { ...activeRound, currentPlayerIndex: 0 } });
+      },
+
+      previousRound: () => {
+        const { game } = get();
+        if (!game || game.rounds.length === 0) return;
+        const lastRound = game.rounds[game.rounds.length - 1];
+        const contracts: Record<string, number> = {};
+        const results: Record<string, number> = {};
+        for (const [pid, entry] of Object.entries(lastRound.players)) {
+          contracts[pid] = entry.contract;
+          results[pid] = entry.result;
+        }
+        set({
+          game: { ...game, rounds: game.rounds.slice(0, -1) },
+          phase: 'result',
+          activeRound: { trickCount: lastRound.trickCount, contracts, results, currentPlayerIndex: 0 },
+        });
+      },
+
+      goBackToContracts: () => {
+        const { game, activeRound } = get();
+        if (!game || !activeRound) return;
+        set({ phase: 'contracts', activeRound: { ...activeRound, currentPlayerIndex: game.players.length - 1 } });
       },
 
       exitGame: () =>

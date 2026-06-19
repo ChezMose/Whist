@@ -104,7 +104,8 @@
     "exit": "Quitter",
     "contractsHeader": "Contrats — Manche {{n}}",
     "resultBtn": "Résultats →",
-    "contractsBtn": "Contrats →"
+    "contractsBtn": "Contrats →",
+    "previous": "← Précédent"
   },
   "contracts": {
     "roundSetup": "Contrats — Paramétrage",
@@ -130,7 +131,9 @@
     "contract": "Contrat : {{n}}",
     "wonPrompt": "Combien de plis avez-vous remportés ?",
     "confirmRound": "Confirmer la manche ✓",
-    "next": "Suivant →"
+    "next": "Suivant →",
+    "previous": "← Précédent",
+    "blocked": "Le total des plis doit être égal à {{count}} — ajustez votre résultat."
   },
   "players": {
     "deleteTitle": "Supprimer le joueur ?",

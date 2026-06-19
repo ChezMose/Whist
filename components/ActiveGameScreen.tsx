@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-native';
+import { useKeepAwake } from 'expo-keep-awake';
 import { useTranslation } from 'react-i18next';
 import { useGameStore, selectTotals } from '../store/gameStore';
 import { saveGame } from '../storage/games';
@@ -7,8 +8,9 @@ import ContractsPhase from './ContractsPhase';
 import ResultPhase from './ResultPhase';
 
 export default function ActiveGameScreen() {
+  useKeepAwake();
   const { t } = useTranslation();
-  const { game, phase, activeRound, beginContracts, beginResult, exitGame } = useGameStore();
+  const { game, phase, activeRound, beginContracts, beginResult, exitGame, previousRound, goBackToContracts } = useGameStore();
 
   if (!game) return null;
 
@@ -97,23 +99,43 @@ export default function ActiveGameScreen() {
       </ScrollView>
 
       <View style={styles.footer}>
-        {contractsEntered ? (
-          <Pressable
-            style={styles.actionBtn}
-            onPress={beginResult}
-            accessibilityLabel={t('activeGame.resultBtn')}
-          >
-            <Text style={styles.actionTxt}>{t('activeGame.resultBtn')}</Text>
-          </Pressable>
-        ) : (
-          <Pressable
-            style={styles.actionBtn}
-            onPress={beginContracts}
-            accessibilityLabel={t('activeGame.contractsBtn')}
-          >
-            <Text style={styles.actionTxt}>{t('activeGame.contractsBtn')}</Text>
-          </Pressable>
-        )}
+        <View style={styles.footerRow}>
+          {contractsEntered ? (
+            <Pressable
+              style={styles.prevBtn}
+              onPress={goBackToContracts}
+              accessibilityLabel={t('activeGame.previous')}
+            >
+              <Text style={styles.prevTxt}>{t('activeGame.previous')}</Text>
+            </Pressable>
+          ) : game.rounds.length > 0 ? (
+            <Pressable
+              style={styles.prevBtn}
+              onPress={previousRound}
+              accessibilityLabel={t('activeGame.previous')}
+            >
+              <Text style={styles.prevTxt}>{t('activeGame.previous')}</Text>
+            </Pressable>
+          ) : null}
+
+          {contractsEntered ? (
+            <Pressable
+              style={styles.actionBtn}
+              onPress={beginResult}
+              accessibilityLabel={t('activeGame.resultBtn')}
+            >
+              <Text style={styles.actionTxt}>{t('activeGame.resultBtn')}</Text>
+            </Pressable>
+          ) : (
+            <Pressable
+              style={styles.actionBtn}
+              onPress={beginContracts}
+              accessibilityLabel={t('activeGame.contractsBtn')}
+            >
+              <Text style={styles.actionTxt}>{t('activeGame.contractsBtn')}</Text>
+            </Pressable>
+          )}
+        </View>
       </View>
     </View>
   );
@@ -150,8 +172,14 @@ const styles = StyleSheet.create({
   contract: { fontSize: 22, fontWeight: '600', color: Colors.textSecondary, marginRight: 16 },
   score: { fontSize: 48, fontWeight: 'bold', color: Colors.textPrimary },
   footer: { padding: 16 },
+  footerRow: { flexDirection: 'row', gap: 12 },
+  prevBtn: {
+    flex: 1, borderRadius: 12, paddingVertical: 16, alignItems: 'center',
+    borderWidth: 1, borderColor: Colors.border,
+  },
+  prevTxt: { color: Colors.textSecondary, fontSize: 16, fontWeight: '600' },
   actionBtn: {
-    backgroundColor: Colors.accent, borderRadius: 12,
+    flex: 1, backgroundColor: Colors.accent, borderRadius: 12,
     paddingVertical: 16, alignItems: 'center',
   },
   actionTxt: { color: '#000', fontSize: 18, fontWeight: 'bold' },

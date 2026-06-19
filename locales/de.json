@@ -104,7 +104,8 @@
     "exit": "Beenden",
     "contractsHeader": "Ansagen — Runde {{n}}",
     "resultBtn": "Ergebnis →",
-    "contractsBtn": "Ansagen →"
+    "contractsBtn": "Ansagen →",
+    "previous": "← Zurück"
   },
   "contracts": {
     "roundSetup": "Ansagen — Rundeneinrichtung",
@@ -130,7 +131,9 @@
     "contract": "Ansage: {{n}}",
     "wonPrompt": "Wie viele Stiche hast du gewonnen?",
     "confirmRound": "Runde bestätigen ✓",
-    "next": "Weiter →"
+    "next": "Weiter →",
+    "previous": "← Zurück",
+    "blocked": "Die Gesamtstiche müssen {{count}} betragen — passe dein Ergebnis an."
   },
   "players": {
     "deleteTitle": "Spieler löschen?",
