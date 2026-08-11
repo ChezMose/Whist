@@ -12,10 +12,14 @@ Core features:
 
 ## Tech Stack
 
-- **React Native** with **TypeScript**
-- **Expo** managed workflow (SDK 50+)
+- **React Native** 0.81 with **TypeScript**
+- **Expo** managed workflow, SDK 54 (Expo CLI 54.0.25)
+- **Node** 24.x
 - **AsyncStorage** or **expo-sqlite** for local data persistence
 - **EAS Build** to produce the APK
+- **@expo/ngrok** 4.1.3, required by `npx expo start --tunnel`
+
+The app runs on a physical Android device through Expo Go (not an emulator), so Expo Go must be SDK 54 compatible.
 
 ## Commands
 
@@ -70,6 +74,10 @@ types/                # Shared TypeScript types (Game, Player, Round, …)
 ### Local storage strategy
 
 Use **expo-sqlite** (via `expo-sqlite/next` for the new async API) for structured game records — it handles queries and migrations more cleanly than AsyncStorage as data grows. AsyncStorage is fine for simple key/value preferences (theme, default player names).
+
+## Memory
+
+`.claude/memory/MEMORY.md` holds the rules for this project. Read that index at the start of a session, and a memory file when its line looks relevant to the task.
 
 ## Specifications
 
